@@ -21,7 +21,13 @@ class GithubSearchViewController: UIViewController {
     @IBOutlet private weak var searchButton: UIButton!
     @IBOutlet private weak var searchResultsTableView: UITableView! {
         didSet {
+            searchResultsTableView.estimatedRowHeight = 200
+            searchResultsTableView.rowHeight = UITableView.automaticDimension
             
+            searchResultsTableView.register(SearchResultTableViewCell.self)
+            
+            searchResultsTableView.dataSource = self
+            searchResultsTableView.delegate = self
         }
     }
     
@@ -40,3 +46,18 @@ class GithubSearchViewController: UIViewController {
 
 }
 
+extension GithubSearchViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+}
+
+extension GithubSearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+}

@@ -34,6 +34,6 @@ struct SearchResultViewModel {
 //  ]
 //}
 
-class SearchResultTableViewCell: UITableViewCell {
+class SearchResultTableViewCell: UITableViewCell, CellLoadable {
     
 }
