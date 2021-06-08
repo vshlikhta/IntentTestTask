@@ -17,8 +17,18 @@ class GithubSearchViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet private weak var searchTextfield: UITextField!
-    @IBOutlet private weak var searchButton: UIButton!
+    @IBOutlet private weak var searchTextfield: UITextField! {
+        didSet {
+            
+        }
+    }
+    
+    @IBOutlet private weak var searchButton: UIButton! {
+        didSet {
+            searchButton.setTitle("Search", for: .normal)
+        }
+    }
+    
     @IBOutlet private weak var searchResultsTableView: UITableView! {
         didSet {
             searchResultsTableView.estimatedRowHeight = 200
@@ -34,7 +44,7 @@ class GithubSearchViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func didTapSearchButton(_ sender: UIButton) {
-        
+        presenter.didTapSearch(with: searchTextfield.text)
     }
     
     // MARK: - View lifecycle
@@ -48,16 +58,19 @@ class GithubSearchViewController: UIViewController {
 
 extension GithubSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return presenter.numberOfItems
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell: SearchResultTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.setup(with: presenter.viewModel(for: indexPath.row))
+        
+        return cell
     }
 }
 
 extension GithubSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        presenter.didSelectSearchResult(at: indexPath.row)
     }
 }

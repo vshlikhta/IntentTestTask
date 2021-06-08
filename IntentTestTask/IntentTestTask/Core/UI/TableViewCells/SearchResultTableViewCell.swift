@@ -36,4 +36,9 @@ struct SearchResultViewModel {
 
 class SearchResultTableViewCell: UITableViewCell, CellLoadable {
     
+    
+    
+    func setup(with data: SearchResultViewModel) {
+        
+    }
 }

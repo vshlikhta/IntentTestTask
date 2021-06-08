@@ -72,11 +72,8 @@
 			children = (
 				3BC520F4266FB18F00D7C805 /* AppDelegate.swift */,
 				3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */,
-				3BC520F8266FB18F00D7C805 /* GithubSearchViewController.swift */,
-				3BC5210C266FBBC300D7C805 /* GithubSearchPresenter.swift */,
 				3BC5210F266FBCC400D7C805 /* App */,
 				3BC52110266FBCCA00D7C805 /* Core */,
-				3BC520FA266FB18F00D7C805 /* Main.storyboard */,
 				3BC520FD266FB19100D7C805 /* Assets.xcassets */,
 				3BC520FF266FB19100D7C805 /* LaunchScreen.storyboard */,
 				3BC52102266FB19100D7C805 /* Info.plist */,
@@ -98,6 +95,9 @@
 		3BC5210F266FBCC400D7C805 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				3BC520FA266FB18F00D7C805 /* Main.storyboard */,
+				3BC520F8266FB18F00D7C805 /* GithubSearchViewController.swift */,
+				3BC5210C266FBBC300D7C805 /* GithubSearchPresenter.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
