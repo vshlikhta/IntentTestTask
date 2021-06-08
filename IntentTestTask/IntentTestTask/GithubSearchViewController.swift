@@ -9,11 +9,21 @@ import UIKit
 
 class GithubSearchViewController: UIViewController {
 
+    // MARK: - Properties
+    
+    private lazy var presenter: GithubSearchPresenter = {
+        return GithubSearchPresenter()
+    }()
+    
     // MARK: - Outlets
     
-    @IBOutlet weak var searchTextfield: UITextField!
-    @IBOutlet weak var searchButton: UIButton!
-    @IBOutlet weak var searchResultsTableView: UITableView!
+    @IBOutlet private weak var searchTextfield: UITextField!
+    @IBOutlet private weak var searchButton: UIButton!
+    @IBOutlet private weak var searchResultsTableView: UITableView! {
+        didSet {
+            
+        }
+    }
     
     // MARK: - Actions
     
@@ -25,7 +35,7 @@ class GithubSearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
 
 }
