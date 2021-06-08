@@ -19,8 +19,13 @@ protocol GithubSearchTableDataProvider: AnyObject {
     func viewModel(for row: Int) -> SearchResultViewModel
 }
 
+typealias GithubSearchPresenterInterface = GithubSearchPresenterAction & GithubSearchTableDataProvider
+
 class GithubSearchPresenter {
     private var storage = [GithubRepositorySearchResponsePayload]()
+    private let apiClient = GithubSearchApiClient()
+    
+    weak var controller: (URLOpenable & ControllerReloadable)?
     
 }
 

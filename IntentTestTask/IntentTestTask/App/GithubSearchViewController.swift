@@ -11,17 +11,15 @@ class GithubSearchViewController: UIViewController {
 
     // MARK: - Properties
     
-    private lazy var presenter: GithubSearchPresenter = {
-        return GithubSearchPresenter()
+    private lazy var presenter: GithubSearchPresenterInterface = {
+        let presenter = GithubSearchPresenter()
+        presenter.controller = self
+        return presenter
     }()
     
     // MARK: - Outlets
     
-    @IBOutlet private weak var searchTextfield: UITextField! {
-        didSet {
-            
-        }
-    }
+    @IBOutlet private weak var searchTextfield: UITextField!
     
     @IBOutlet private weak var searchButton: UIButton! {
         didSet {
@@ -46,16 +44,18 @@ class GithubSearchViewController: UIViewController {
     @IBAction func didTapSearchButton(_ sender: UIButton) {
         presenter.didTapSearch(with: searchTextfield.text)
     }
-    
-    // MARK: - View lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-
 }
 
+// MARK: - ControllerReloadable
+extension GithubSearchViewController: ControllerReloadable {
+    func reload() {
+        Executor.main.execute {
+            self.searchResultsTableView.reloadData()
+        }
+    }
+}
+
+// MARK: - UITableViewDataSource
 extension GithubSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.numberOfItems
@@ -69,6 +69,7 @@ extension GithubSearchViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension GithubSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didSelectSearchResult(at: indexPath.row)
