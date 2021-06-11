@@ -22,15 +22,11 @@ class GithubSearchViewController: UIViewController {
     
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var searchTextfield: UITextField! {
-        didSet {
-            searchTextfield.delegate = self
-        }
+        didSet { searchTextfield.delegate = self }
     }
     
     @IBOutlet private weak var searchButton: UIButton! {
-        didSet {
-            searchButton.setTitle("Search", for: .normal)
-        }
+        didSet { searchButton.setTitle("Search", for: .normal) }
     }
     
     @IBOutlet private weak var searchResultsTableView: UITableView! {
@@ -53,6 +49,8 @@ class GithubSearchViewController: UIViewController {
         presenter.didTapSearch(with: searchTextfield.text)
     }
     
+    // MARK: - Controller lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,6 +69,9 @@ class GithubSearchViewController: UIViewController {
 
 // MARK: - ControllerReloadable
 extension GithubSearchViewController: ControllerReloadable {
+    // NOTE: - This is a generalized version of reload,
+    // could be more specific in some cases,
+    // but for this task generalized reload was enough
     func reload() {
         Executor.main.execute {
             self.searchResultsTableView.reloadData()
@@ -94,6 +95,8 @@ extension GithubSearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // NOTE: - There is definately a better way to do last cell tracking,
+        // and using a constant like that a bit bugs me
         if indexPath.row.distance(to: presenter.numberOfItems) < 3 {
             presenter.requestMoreResults()
         }

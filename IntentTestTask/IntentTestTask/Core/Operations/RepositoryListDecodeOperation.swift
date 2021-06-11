@@ -16,19 +16,10 @@ class RepositoryListDecodeOperation: Operation {
 
     override func main() {
         guard let dataFetched = dataFetched else { return }
-        let decoder = JSONDecoder()
         do {
-            let content = try decoder.decode(GithubRepositorySearchResponsePayload.self, from: dataFetched)
+            let content = try JSONDecoder().decode(GithubRepositorySearchResponsePayload.self, from: dataFetched)
             completionHandler?(content)
-//            if let id = content.data.first?.id {
-//                  self.decodedURL = URL(string: Constants.baseURL + "/" + String(id) )
-//                completionHandler?(content)
-//            } else {
-//                self.error = IntentTestTaskError.general
-//                completionHandler?(nil)
-//            }
         } catch {
-            print(error)
             self.error = error
             completionHandler?(nil)
         }

@@ -19,6 +19,7 @@ class GithubSearchApiClient: GithubSearchApiClientInterface {
     
     private let queueManager = QueueManager.shared
     private let httpManager = HTTPManager(session: URLSession.shared)
+    // NOTE: - There probably is a better way to manage last request
     private var lastRetrieveRequest: RepositoryRequest?
     
     // MARK: - Methods
@@ -64,11 +65,5 @@ class GithubSearchApiClient: GithubSearchApiClientInterface {
         }
         
         queueManager.addOperations([fetch, parse, adapter])
-    }
-}
-
-fileprivate extension String {
-    var incremented: String {
-        return "\((Int(self) ?? 0) + 1)"
     }
 }

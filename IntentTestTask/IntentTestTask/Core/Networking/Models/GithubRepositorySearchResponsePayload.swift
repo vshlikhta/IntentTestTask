@@ -8,7 +8,6 @@
 import Foundation
 
 struct GithubRepositorySearchResponsePayload: Decodable {
-    
     let totalCount: Int
     let isLastResult: Bool
     let items: [GithubRepositorySearchItemResponse]

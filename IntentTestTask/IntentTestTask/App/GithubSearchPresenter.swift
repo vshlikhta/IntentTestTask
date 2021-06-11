@@ -7,6 +7,8 @@
 
 import Foundation
 
+// NOTE: - All those protocols related to presenter clog up space,
+// so usually are in a separate file, but now there is not many of them
 protocol GithubSearchPresenterAction: AnyObject {
     func didTapSearch(with query: String?)
     
@@ -30,13 +32,17 @@ class GithubSearchPresenter {
         case idle
     }
     
+    // MARK: - Properties
+    
     var state: ImmutableObservable<State> {
         return internalState.immutable
     }
     private var internalState: Observable<State> = .init(.idle)
-    
-    private var storage: GithubRepositorySearchResponsePayload?
     private let apiClient: GithubSearchApiClientInterface = GithubSearchApiClient()
+    
+    // NOTE: - For data storing and managing there should be
+    // a separate data manager as it would later clog presenter
+    private var storage: GithubRepositorySearchResponsePayload?
     private var searchResultItems = [SearchResultViewModel]()
     
     weak var controller: (URLOpenable & ControllerReloadable)?
@@ -44,16 +50,21 @@ class GithubSearchPresenter {
 }
 
 extension GithubSearchPresenter: GithubSearchTableDataProvider {
+    // NOTE: - There are better solutions to binding
+    // collection/table views with data provider.
     var numberOfItems: Int {
         return searchResultItems.count
     }
     
+    // NOTE: - Not the best way to provide viewModel for cells,
+    // but for now we rely on fact that searchResultItems is only ui related
     func viewModel(for row: Int) -> SearchResultViewModel? {
         return searchResultItems.element(at: row)
     }
 }
 
 extension GithubSearchPresenter: GithubSearchPresenterAction {
+    // NOTE: - didTapSearch and requestMoreResults could be refactored into one method probably
     func didTapSearch(with query: String?) {
         internalState.value = .loading
         apiClient.start(with: query) { [weak self] data in
@@ -108,24 +119,16 @@ extension GithubSearchPresenter: GithubSearchPresenterAction {
 }
 
 fileprivate extension SearchResultViewModel {
+    enum Origin {
+        case new
+        case additional
+    }
+    
     init(with searchItem: GithubRepositorySearchItemResponse) {
         id = searchItem.id
         title = searchItem.fullName
         description = searchItem.description
         language = searchItem.language
         isPrivate = searchItem.isPrivate
-    }
-}
-
-extension Array {
-    func element(at index: Int) -> Element? {
-        return enumerated().first { $0.offset == index }?.element
-    }
-}
-
-fileprivate extension SearchResultViewModel {
-    enum Origin {
-        case new
-        case additional
     }
 }
