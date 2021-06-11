@@ -23,7 +23,7 @@ protocol HTTPManagerProtocol {
     var session: T { get }
     init(session: T)
     
-    func get(url: URL, completionBlock: @escaping (Result<Data, Error>) -> Void)
+    func get(request: URLRequest, onComplete: @escaping (Result<Data, Error>) -> Void)
 }
 
 class HTTPManager<T: URLSessionProtocol> {
@@ -34,39 +34,25 @@ class HTTPManager<T: URLSessionProtocol> {
         self.session = session
     }
     
-    enum HTTPError: Error {
-        case invalidURL
-        case noInternet
-        case invalidResponse(Data?, URLResponse?)
-    }
-    
-    public func get(url: URL, completionBlock: @escaping (Result<Data, Error>) -> Void) {
-        let request = URLRequest(url: url,
-                                 cachePolicy: .reloadIgnoringLocalCacheData,
-                                 timeoutInterval: 60)
-
-        let task = session.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                completionBlock(.failure(error!))
+    public func get(request: URLRequest, onComplete: @escaping (Result<Data, Error>) -> Void) {
+        session.dataTask(with: request) { data, response, error in
+            if let error = error {
+                onComplete(.failure(error))
+                return
+            }
+            
+            guard (200..<300).contains(response?.statCode) else {
+                onComplete(.failure(IntentTestTaskError.badStatusCode))
                 return
             }
 
-            guard
-                let _ = data,
-                let httpResponse = response as? HTTPURLResponse,
-                200 ..< 300 ~= httpResponse.statusCode else {
-                    if let data = data {
-                        completionBlock(.success(data))
-                    } else {
-                        completionBlock(.failure(HTTPError.invalidResponse(data, response)))
-                    }
-                    return
+            guard let data = data else {
+                onComplete(.failure(IntentTestTaskError.corruptedData))
+                return
             }
-            if let data = data {
-                completionBlock(.success(data))
-            }
-        }
-        task.resume()
+            
+            onComplete(.success(data))
+        }.resume()
     }
 }
 
@@ -75,3 +61,10 @@ extension HTTPManager : HTTPManagerProtocol {}
 extension URLSession: URLSessionProtocol {}
 
 extension URLSessionDataTask: URLSessionDataTaskProtocol {}
+
+extension Range {
+    func contains(_ value: Self.Bound?) -> Bool {
+        guard let value = value else { return false }
+        return contains(value)
+    }
+}

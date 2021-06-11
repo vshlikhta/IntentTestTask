@@ -28,6 +28,7 @@ class RepositoryListDecodeOperation: Operation {
 //                completionHandler?(nil)
 //            }
         } catch {
+            print(error)
             self.error = error
             completionHandler?(nil)
         }

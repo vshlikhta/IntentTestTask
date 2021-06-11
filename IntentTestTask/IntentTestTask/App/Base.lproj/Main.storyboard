@@ -3,7 +3,6 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="djH-L5-j5D">
-                                <rect key="frame" x="0.0" y="170" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="182" width="414" height="680"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x9L-HB-syy">
@@ -28,32 +27,36 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="54" placeholderIntrinsicHeight="44" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MxB-Bh-85e">
                                 <rect key="frame" x="16" y="110" width="382" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" name="AccentColor"/>
-                                </state>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="didTapSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cir-vc-ICe"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="qzF-iW-xNZ">
+                                <rect key="frame" x="197" y="158" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="x9L-HB-syy" secondAttribute="trailing" constant="16" id="0O4-Gs-RAw"/>
+                            <constraint firstItem="djH-L5-j5D" firstAttribute="top" secondItem="qzF-iW-xNZ" secondAttribute="bottom" constant="4" id="1KU-Ns-L6i"/>
                             <constraint firstItem="djH-L5-j5D" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="4MX-fF-XML"/>
-                            <constraint firstItem="djH-L5-j5D" firstAttribute="top" secondItem="MxB-Bh-85e" secondAttribute="bottom" constant="16" id="FId-Tz-MR6"/>
                             <constraint firstItem="x9L-HB-syy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="GyY-ps-VwG"/>
                             <constraint firstItem="x9L-HB-syy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="QyC-df-V11"/>
+                            <constraint firstItem="qzF-iW-xNZ" firstAttribute="top" secondItem="MxB-Bh-85e" secondAttribute="bottom" constant="4" id="UBi-8F-hb0"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="djH-L5-j5D" secondAttribute="bottom" id="YsR-k0-tnb"/>
                             <constraint firstItem="MxB-Bh-85e" firstAttribute="top" secondItem="x9L-HB-syy" secondAttribute="bottom" constant="16" id="dyz-TW-bUd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="djH-L5-j5D" secondAttribute="trailing" id="eEV-lH-VQ6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MxB-Bh-85e" secondAttribute="trailing" constant="16" id="guS-b7-2Mo"/>
+                            <constraint firstItem="qzF-iW-xNZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pJf-zp-EVu"/>
                             <constraint firstItem="MxB-Bh-85e" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tBp-w2-2ne"/>
                             <constraint firstItem="MxB-Bh-85e" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="wbZ-C2-5bC"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="qzF-iW-xNZ" id="Z8C-97-b01"/>
                         <outlet property="searchButton" destination="MxB-Bh-85e" id="BPy-c2-6wu"/>
                         <outlet property="searchResultsTableView" destination="djH-L5-j5D" id="gSI-TV-xUy"/>
                         <outlet property="searchTextfield" destination="x9L-HB-syy" id="9DB-DH-GR3"/>
@@ -61,13 +64,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="119"/>
+            <point key="canvasLocation" x="137.68115942028987" y="118.52678571428571"/>
         </scene>
     </scenes>
     <resources>
-        <namedColor name="AccentColor">
-            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

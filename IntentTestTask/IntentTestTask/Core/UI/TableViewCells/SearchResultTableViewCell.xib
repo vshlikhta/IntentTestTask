@@ -56,6 +56,12 @@
                     <constraint firstItem="KXb-U2-hkK" firstAttribute="top" secondItem="OCa-te-t3q" secondAttribute="bottom" constant="8" id="sGM-em-Wa6"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="isPrivateImageView" destination="dPG-bM-SB7" id="TxM-sn-s3d"/>
+                <outlet property="longDescriptionLabel" destination="KXb-U2-hkK" id="vrK-gg-h4B"/>
+                <outlet property="shortDescriptionLabel" destination="OCa-te-t3q" id="dUR-8q-lxg"/>
+                <outlet property="titleLabel" destination="6gw-wE-fx6" id="QSe-I5-Rgm"/>
+            </connections>
             <point key="canvasLocation" x="-106.5217391304348" y="92.410714285714278"/>
         </tableViewCell>
     </objects>

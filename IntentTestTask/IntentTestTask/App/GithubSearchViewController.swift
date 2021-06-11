@@ -16,10 +16,16 @@ class GithubSearchViewController: UIViewController {
         presenter.controller = self
         return presenter
     }()
+    private var disposeBag = Disposal()
     
     // MARK: - Outlets
     
-    @IBOutlet private weak var searchTextfield: UITextField!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var searchTextfield: UITextField! {
+        didSet {
+            searchTextfield.delegate = self
+        }
+    }
     
     @IBOutlet private weak var searchButton: UIButton! {
         didSet {
@@ -31,6 +37,7 @@ class GithubSearchViewController: UIViewController {
         didSet {
             searchResultsTableView.estimatedRowHeight = 200
             searchResultsTableView.rowHeight = UITableView.automaticDimension
+            searchResultsTableView.tableFooterView = UIView()
             
             searchResultsTableView.register(SearchResultTableViewCell.self)
             
@@ -42,7 +49,23 @@ class GithubSearchViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func didTapSearchButton(_ sender: UIButton) {
+        searchTextfield.resignFirstResponder()
         presenter.didTapSearch(with: searchTextfield.text)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        presenter
+            .state
+            .observe(DispatchQueue.main) { state, _ in
+                switch state {
+                case .idle:
+                    self.activityIndicatorView.stopAnimating()
+                case .loading:
+                    self.activityIndicatorView.startAnimating()
+                }
+        }.add(to: &disposeBag)
     }
 }
 
@@ -62,10 +85,18 @@ extension GithubSearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let viewModel = presenter.viewModel(for: indexPath.row) else { return UITableViewCell() }
+        
         let cell: SearchResultTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.setup(with: presenter.viewModel(for: indexPath.row))
+        cell.setup(with: viewModel)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row.distance(to: presenter.numberOfItems) < 3 {
+            presenter.requestMoreResults()
+        }
     }
 }
 
@@ -73,5 +104,12 @@ extension GithubSearchViewController: UITableViewDataSource {
 extension GithubSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.didSelectSearchResult(at: indexPath.row)
+    }
+}
+
+extension GithubSearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextfield.resignFirstResponder()
+        return true
     }
 }

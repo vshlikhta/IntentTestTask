@@ -10,7 +10,9 @@ import Foundation
 final class QueueManager {
     
     lazy var queue: OperationQueue = {
-        return OperationQueue()
+        let queue = OperationQueue()
+        queue.qualityOfService = .background
+        return queue
     }()
     
     static let shared = QueueManager()
@@ -20,6 +22,10 @@ final class QueueManager {
     }
     
     func addOperations(_ operations: [Operation]) {
-        queue.addOperations(operations, waitUntilFinished: true)
+        queue.addOperations(operations, waitUntilFinished: false)
+    }
+    
+    func cancelAllOperations() {
+        queue.cancelAllOperations()
     }
 }

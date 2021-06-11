@@ -42,25 +42,24 @@ class NetworkOperation: Operation {
     }
     
     override func start() {
-        guard !isCancelled else {
+        guard isCancelled == false else {
             finish()
             return
         }
-        if !isExecuting {
+        if isExecuting == false {
             state = .executing
         }
         main()
     }
     
     func finish() {
-        if isExecuting {
-            state = .finished
-        }
+        guard isExecuting else { return }
+        state = .finished
     }
     
     func complete(result: Result<Data, Error>) {
         finish()
-        if !isCancelled {
+        if isCancelled == false {
             completionHandler?(result)
         }
     }

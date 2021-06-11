@@ -8,5 +8,10 @@
 import Foundation
 
 enum Constants {
+    enum Github {
+        static let scheme: String = "https"
+        static let host: String = "api.github.com"
+    }
+    
     static let baseURL: String = "https://api.github.com/search/repositories"
 }

@@ -10,6 +10,8 @@ import Foundation
 enum IntentTestTaskError: Error {
     
     case general
+    case badStatusCode
+    case corruptedData
     
     enum Internal: Error {
         case badURL
