@@ -8,10 +8,10 @@
 import Foundation
 
 protocol URLSessionProtocol {
-    associatedtype dataTaskProtocolType: URLSessionDataTaskProtocol
-    func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> dataTaskProtocolType
+    associatedtype DataTaskProtocolType: URLSessionDataTaskProtocol
+    func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> DataTaskProtocolType
     
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> dataTaskProtocolType
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> DataTaskProtocolType
 }
 
 protocol URLSessionDataTaskProtocol {
@@ -23,7 +23,7 @@ protocol HTTPManagerProtocol {
     var session: T { get }
     init(session: T)
     
-    func get(request: URLRequest, onComplete: @escaping (Result<Data, Error>) -> Void)
+    func perform(request: URLRequest, onComplete: @escaping (Result<Data, IntentTestTaskError>) -> Void)
 }
 
 class HTTPManager<T: URLSessionProtocol> {
@@ -34,20 +34,20 @@ class HTTPManager<T: URLSessionProtocol> {
         self.session = session
     }
     
-    public func get(request: URLRequest, onComplete: @escaping (Result<Data, Error>) -> Void) {
+    public func perform(request: URLRequest, onComplete: @escaping (Result<Data, IntentTestTaskError>) -> Void) {
         session.dataTask(with: request) { data, response, error in
             if let error = error {
-                onComplete(.failure(error))
+                onComplete(.failure(.custom(error: error)))
                 return
             }
             
-            guard (200..<300).contains(response?.statCode) else {
-                onComplete(.failure(IntentTestTaskError.badStatusCode))
+            if let statusCode = response?.statCode, (200..<300).contains(statusCode) {
+                onComplete(.failure(.badStatusCode(value: statusCode)))
                 return
             }
 
             guard let data = data else {
-                onComplete(.failure(IntentTestTaskError.corruptedData))
+                onComplete(.failure(.corruptedData))
                 return
             }
             

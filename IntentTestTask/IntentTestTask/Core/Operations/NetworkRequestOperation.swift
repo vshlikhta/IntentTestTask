@@ -8,7 +8,7 @@
 import Foundation
 
 class NetworkOperation: Operation {
-    typealias OperationCompletionHandler = (_ result: Result<Data, Error>) -> Void
+    typealias OperationCompletionHandler = (_ result: Result<Data, IntentTestTaskError>) -> Void
     
     var completionHandler: (OperationCompletionHandler)?
     
@@ -57,7 +57,7 @@ class NetworkOperation: Operation {
         state = .finished
     }
     
-    func complete(result: Result<Data, Error>) {
+    func complete(result: Result<Data, IntentTestTaskError>) {
         finish()
         if isCancelled == false {
             completionHandler?(result)

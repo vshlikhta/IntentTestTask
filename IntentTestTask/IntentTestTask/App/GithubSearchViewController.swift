@@ -7,16 +7,27 @@
 
 import UIKit
 
+protocol GithubSearchViewControllerInterface: ControllerReloadable, URLOpenable, ErrorPresentable {
+    var requestSearchResultsObservable: ImmutableObservable<GithubSearchViewController.SearchRequest> { get }
+    var searchResultSelectObservable: ImmutableObservable<Int?> { get }
+}
+
 class GithubSearchViewController: UIViewController {
 
+    enum SearchRequest {
+        case initial
+        case new(query: String?)
+        case more
+    }
+    
     // MARK: - Properties
     
     private lazy var presenter: GithubSearchPresenterInterface = {
-        let presenter = GithubSearchPresenter()
-        presenter.controller = self
-        return presenter
+        return GithubSearchPresenter(with: self)
     }()
     private var disposeBag = Disposal()
+    private var requestSearchResultsSubject: Observable<SearchRequest> = .init(.initial)
+    private var searchResultSelectSubject: Observable<Int?> = .init(nil)
     
     // MARK: - Outlets
     
@@ -46,7 +57,7 @@ class GithubSearchViewController: UIViewController {
     
     @IBAction func didTapSearchButton(_ sender: UIButton) {
         searchTextfield.resignFirstResponder()
-        presenter.didTapSearch(with: searchTextfield.text)
+        requestSearchResultsSubject.value = .new(query: searchTextfield.text)
     }
     
     // MARK: - Controller lifecycle
@@ -67,11 +78,15 @@ class GithubSearchViewController: UIViewController {
     }
 }
 
-// MARK: - ControllerReloadable
-extension GithubSearchViewController: ControllerReloadable {
-    // NOTE: - This is a generalized version of reload,
-    // could be more specific in some cases,
-    // but for this task generalized reload was enough
+extension GithubSearchViewController: GithubSearchViewControllerInterface {
+    var requestSearchResultsObservable: ImmutableObservable<SearchRequest> {
+        return requestSearchResultsSubject.immutable
+    }
+    
+    var searchResultSelectObservable: ImmutableObservable<Int?> {
+        return searchResultSelectSubject.immutable
+    }
+    
     func reload() {
         Executor.main.execute {
             self.searchResultsTableView.reloadData()
@@ -95,18 +110,20 @@ extension GithubSearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        // NOTE: - There is definately a better way to do last cell tracking,
-        // and using a constant like that a bit bugs me
-        if indexPath.row.distance(to: presenter.numberOfItems) < 3 {
-            presenter.requestMoreResults()
+        if shouldLoadMoreItems(forRowAt: indexPath) {
+            requestSearchResultsSubject.value = .more
         }
+    }
+    
+    private func shouldLoadMoreItems(forRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row.distance(to: presenter.numberOfItems) < 3
     }
 }
 
 // MARK: - UITableViewDelegate
 extension GithubSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didSelectSearchResult(at: indexPath.row)
+        searchResultSelectSubject.value = indexPath.row
     }
 }
 

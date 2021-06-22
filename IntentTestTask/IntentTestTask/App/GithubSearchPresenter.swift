@@ -7,15 +7,6 @@
 
 import Foundation
 
-// NOTE: - All those protocols related to presenter clog up space,
-// so usually are in a separate file, but now there is not many of them
-protocol GithubSearchPresenterAction: AnyObject {
-    func didTapSearch(with query: String?)
-    
-    func didSelectSearchResult(at row: Int)
-    func requestMoreResults()
-}
-
 protocol GithubSearchTableDataProvider: AnyObject {
     var state: ImmutableObservable<GithubSearchPresenter.State> { get }
     var numberOfItems: Int { get }
@@ -23,7 +14,7 @@ protocol GithubSearchTableDataProvider: AnyObject {
     func viewModel(for row: Int) -> SearchResultViewModel?
 }
 
-typealias GithubSearchPresenterInterface = GithubSearchPresenterAction & GithubSearchTableDataProvider
+typealias GithubSearchPresenterInterface = GithubSearchTableDataProvider
 
 class GithubSearchPresenter {
     
@@ -37,98 +28,86 @@ class GithubSearchPresenter {
     var state: ImmutableObservable<State> {
         return internalState.immutable
     }
+    
     private var internalState: Observable<State> = .init(.idle)
+    private var disposeBag = Disposal()
+    
     private let apiClient: GithubSearchApiClientInterface = GithubSearchApiClient()
+    private let storage = GithubSearchResultsDataManager()
     
-    // NOTE: - For data storing and managing there should be
-    // a separate data manager as it would later clog presenter
-    private var storage: GithubRepositorySearchResponsePayload?
-    private var searchResultItems = [SearchResultViewModel]()
+    private weak var controller: GithubSearchViewControllerInterface?
     
-    weak var controller: (URLOpenable & ControllerReloadable)?
-    
+    init(with controller: GithubSearchViewControllerInterface) {
+        self.controller = controller
+        
+        storage.searchResultsObservable.observe { [weak self] _, _ in
+            self?.controller?.reload()
+        }.add(to: &disposeBag)
+        
+        controller.requestSearchResultsObservable.observe { [weak self] request, _ in
+            switch request {
+            case .initial:
+                ()
+            case .new(let query):
+                self?.requestRepositories(for: query)
+            case .more:
+                guard self?.storage.isMoreAvailable == true else { return }
+                self?.requestMoreResults()
+            }
+        }.add(to: &disposeBag)
+        
+        controller.searchResultSelectObservable.observe { [weak self] row, _ in
+            guard let row = row else { return }
+            self?.didSelectSearchResult(at: row)
+        }.add(to: &disposeBag)
+    }
 }
 
 extension GithubSearchPresenter: GithubSearchTableDataProvider {
-    // NOTE: - There are better solutions to binding
-    // collection/table views with data provider.
     var numberOfItems: Int {
-        return searchResultItems.count
+        return storage.searchResultsObservable.value.count
     }
     
-    // NOTE: - Not the best way to provide viewModel for cells,
-    // but for now we rely on fact that searchResultItems is only ui related
     func viewModel(for row: Int) -> SearchResultViewModel? {
-        return searchResultItems.element(at: row)
+        return storage.searchResultsObservable.value.element(at: row)
     }
 }
 
-extension GithubSearchPresenter: GithubSearchPresenterAction {
-    // NOTE: - didTapSearch and requestMoreResults could be refactored into one method probably
-    func didTapSearch(with query: String?) {
+extension GithubSearchPresenter {
+    private func requestRepositories(for query: String?) {
         internalState.value = .loading
-        apiClient.start(with: query) { [weak self] data in
+        apiClient.loadRepositories(for: query) { [weak self] result in
             self?.internalState.value = .idle
-            guard let data = data else { return }
-            self?.store(.new, data)
-            Executor.main.execute {
-                self?.controller?.reload()
+            switch result {
+            case .success(let data):
+                guard let data = data else { return }
+                self?.storage.store(.new, data)
+            case .failure(let error):
+                self?.controller?.show(alert: error.asAlert)
             }
         }
     }
     
-    func requestMoreResults() {
-        guard storage?.isLastResult == false else {
-            return
-        }
+    private func requestMoreResults() {
         internalState.value = .loading
-        apiClient.retrieveMoreRepositories { [weak self] data in
+        apiClient.retrieveMoreRepositories { [weak self] result in
             self?.internalState.value = .idle
-            guard let data = data else { return }
-            self?.store(.additional, data)
-            Executor.main.execute {
-                self?.controller?.reload()
+            switch result {
+            case .success(let data):
+                guard let data = data else { return }
+                self?.storage.store(.additional, data)
+            case .failure(let error):
+                self?.controller?.show(alert: error.asAlert)
             }
         }
     }
     
-    private func store(_ type: SearchResultViewModel.Origin, _ searchResult: GithubRepositorySearchResponsePayload) {
-        storage = searchResult
-        let newItems = searchResult.items.map { SearchResultViewModel(with: $0) }
-        switch type {
-        case .new:
-            searchResultItems = newItems
-        case .additional:
-            searchResultItems = searchResultItems + newItems
-        }
-    }
-    
-    private func store(additional searchResult: GithubRepositorySearchResponsePayload) {
-        storage = searchResult
-        searchResultItems.append(contentsOf: searchResult.items.map { SearchResultViewModel(with: $0) })
-    }
-    
-    func didSelectSearchResult(at row: Int) {
-        let selectedViewModelId = searchResultItems.element(at: row)?.id
-        let selectedUrl = storage?.items.first { $0.id == selectedViewModelId }?.url
+    private func didSelectSearchResult(at row: Int) {
+        guard let selectedViewModelId = storage.searchResultsObservable.value.element(at: row)?.id else { return }
+        let itemData = storage.item(with: selectedViewModelId)
         
         Executor.main.execute {
-            try? self.controller?.open(selectedUrl)
+            try? self.controller?.open(itemData?.url)
         }
-    }
-}
-
-fileprivate extension SearchResultViewModel {
-    enum Origin {
-        case new
-        case additional
-    }
-    
-    init(with searchItem: GithubRepositorySearchItemResponse) {
-        id = searchItem.id
-        title = searchItem.fullName
-        description = searchItem.description
-        language = searchItem.language
-        isPrivate = searchItem.isPrivate
     }
 }

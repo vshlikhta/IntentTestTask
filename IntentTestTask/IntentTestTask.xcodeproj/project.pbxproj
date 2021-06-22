@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B9120812681D3CF0087D08A /* GithubSearchResultsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120802681D3CF0087D08A /* GithubSearchResultsDataManager.swift */; };
+		3B9120832681F7570087D08A /* UIViewController+ErrorPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120822681F7570087D08A /* UIViewController+ErrorPresentable.swift */; };
+		3B9120852681F7840087D08A /* IntentTestTaskAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120842681F7840087D08A /* IntentTestTaskAlert.swift */; };
 		3BC520F5266FB18F00D7C805 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F4266FB18F00D7C805 /* AppDelegate.swift */; };
 		3BC520F7266FB18F00D7C805 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */; };
 		3BC520F9266FB18F00D7C805 /* GithubSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F8266FB18F00D7C805 /* GithubSearchViewController.swift */; };
@@ -42,6 +45,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B9120802681D3CF0087D08A /* GithubSearchResultsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchResultsDataManager.swift; sourceTree = "<group>"; };
+		3B9120822681F7570087D08A /* UIViewController+ErrorPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorPresentable.swift"; sourceTree = "<group>"; };
+		3B9120842681F7840087D08A /* IntentTestTaskAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentTestTaskAlert.swift; sourceTree = "<group>"; };
 		3BC520F1266FB18F00D7C805 /* IntentTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntentTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC520F4266FB18F00D7C805 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				3BC52113266FBCF600D7C805 /* UITableView+CellReusable.swift */,
+				3B9120822681F7570087D08A /* UIViewController+ErrorPresentable.swift */,
 				3BC5213F26738D5400D7C805 /* URLResponse+StatusCode.swift */,
 				3BC5214326738FBE00D7C805 /* String+Incremented.swift */,
 				3BC5214126738EAA00D7C805 /* Array+ElementAt.swift */,
@@ -139,6 +146,7 @@
 				3BC520FA266FB18F00D7C805 /* Main.storyboard */,
 				3BC520F8266FB18F00D7C805 /* GithubSearchViewController.swift */,
 				3BC5210C266FBBC300D7C805 /* GithubSearchPresenter.swift */,
+				3B9120802681D3CF0087D08A /* GithubSearchResultsDataManager.swift */,
 				3BC52126266FC60100D7C805 /* GithubSearchApiClient.swift */,
 			);
 			path = App;
@@ -157,6 +165,7 @@
 				3BC52124266FC54C00D7C805 /* ControllerReloadable.swift */,
 				3BC52132266FDBBE00D7C805 /* QueueManager.swift */,
 				3BC5211F266FC42B00D7C805 /* Executor.swift */,
+				3B9120842681F7840087D08A /* IntentTestTaskAlert.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -289,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BC52125266FC54C00D7C805 /* ControllerReloadable.swift in Sources */,
+				3B9120852681F7840087D08A /* IntentTestTaskAlert.swift in Sources */,
 				3BC5213E2673551900D7C805 /* String+BulletPoint.swift in Sources */,
 				3BC5211E266FC3BD00D7C805 /* IntentTestTaskError.swift in Sources */,
 				3BC520F9266FB18F00D7C805 /* GithubSearchViewController.swift in Sources */,
@@ -304,6 +314,8 @@
 				3BC52120266FC42B00D7C805 /* Executor.swift in Sources */,
 				3BC52127266FC60100D7C805 /* GithubSearchApiClient.swift in Sources */,
 				3BC52114266FBCF600D7C805 /* UITableView+CellReusable.swift in Sources */,
+				3B9120812681D3CF0087D08A /* GithubSearchResultsDataManager.swift in Sources */,
+				3B9120832681F7570087D08A /* UIViewController+ErrorPresentable.swift in Sources */,
 				3BC5211A266FBE3F00D7C805 /* Lock.swift in Sources */,
 				3BC52116266FBE1100D7C805 /* Observable.swift in Sources */,
 				3BC5212B266FCD7900D7C805 /* RepositoryListDecodeOperation.swift in Sources */,

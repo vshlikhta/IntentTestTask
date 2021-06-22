@@ -10,7 +10,7 @@ import Foundation
 class RepositoryListRetrievalOperation<T: HTTPManagerProtocol>: NetworkOperation {
     var dataFetched: Data?
     var httpManager: T?
-    var error: Error?
+    var error: IntentTestTaskError?
     var request: URLRequest?
     
     init(request: URLRequest? = nil, httpManager: T) {
@@ -20,7 +20,7 @@ class RepositoryListRetrievalOperation<T: HTTPManagerProtocol>: NetworkOperation
     
     override func main() {
         guard let request = request else { return }
-        httpManager?.get(request: request, onComplete: { [weak self] result in
+        httpManager?.perform(request: request, onComplete: { [weak self] result in
             switch result {
             case .success(let data):
                 self?.dataFetched = data

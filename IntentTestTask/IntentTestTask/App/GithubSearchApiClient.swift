@@ -8,62 +8,71 @@
 import Foundation
 
 protocol GithubSearchApiClientInterface: AnyObject {
-    func start(with query: String?, onComplete: @escaping (GithubRepositorySearchResponsePayload?) -> Void)
-    func retrieveMoreRepositories(onComplete: @escaping (GithubRepositorySearchResponsePayload?) -> Void)
+    func loadRepositories(for query: String?, onComplete: @escaping GithubSearchApiClient.RepositoryRetrieveResponse)
+    func retrieveMoreRepositories(onComplete: @escaping GithubSearchApiClient.RepositoryRetrieveResponse)
 }
 
 class GithubSearchApiClient: GithubSearchApiClientInterface {
-    typealias RepositoryRetrieveResponse = (GithubRepositorySearchResponsePayload?) -> Void
+    typealias RepositoryRetrieveResponse = (Result<GithubRepositorySearchResponsePayload?, IntentTestTaskError>) -> Void
     
     // MARK: - Properties
     
     private let queueManager = QueueManager.shared
     private let httpManager = HTTPManager(session: URLSession.shared)
-    // NOTE: - There probably is a better way to manage last request
+    
     private var lastRetrieveRequest: RepositoryRequest?
     
     // MARK: - Methods
     
-    func start(with query: String?, onComplete: @escaping RepositoryRetrieveResponse) {
+    func loadRepositories(for query: String?, onComplete: @escaping RepositoryRetrieveResponse) {
         queueManager.cancelAllOperations()
         lastRetrieveRequest = nil
-        retrieveRepositoryList(for: query, page: "1", onComplete: onComplete)
+        retrieveRepositoryList(for: query, page: "1", onComplete)
     }
     
     func retrieveMoreRepositories(onComplete: @escaping RepositoryRetrieveResponse) {
-        guard let lastRetrieveRequest = lastRetrieveRequest else { return }
-        switch lastRetrieveRequest {
-        case .repositoryList(let query, let page):
+        if case .repositoryList(let query, let page) = lastRetrieveRequest {
             retrieveRepositoryList(for: query,
                                    page: page.incremented,
-                                   onComplete: onComplete)
+                                   onComplete)
         }
     }
     
     private func retrieveRepositoryList(for query: String?,
                                         page: String,
-                                        onComplete: @escaping RepositoryRetrieveResponse) {
+                                        _ onComplete: @escaping RepositoryRetrieveResponse) {
         let retrieveRequest = RepositoryRequest.repositoryList(query: query, page: page)
         
         guard let mutableRequest = try? retrieveRequest.getMutableRequest() else { return }
         
         let fetch = RepositoryListRetrievalOperation(request: mutableRequest,
                                                      httpManager: httpManager)
+        fetch.completionHandler = { [weak self] result in
+            if case .failure(let err) = result {
+                self?.queueManager.cancelAllOperations()
+                onComplete(.failure(err))
+            }
+        }
+        
         let parse = RepositoryListDecodeOperation()
+        
+        parse.completionHandler = { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.lastRetrieveRequest = retrieveRequest
+                onComplete(.success(data))
+            case .failure(let err):
+                onComplete(.failure(err))
+            }
+        }
         
         let adapter = BlockOperation() { [unowned fetch, unowned parse] in
             parse.dataFetched = fetch.dataFetched
-            parse.error = fetch.error
         }
         
         adapter.addDependency(fetch)
         parse.addDependency(adapter)
         
-        parse.completionHandler = { [weak self] data in
-            self?.lastRetrieveRequest = retrieveRequest
-            onComplete(data)
-        }
-        
-        queueManager.addOperations([fetch, parse, adapter])
+        queueManager.addOperations([fetch, adapter, parse])
     }
 }

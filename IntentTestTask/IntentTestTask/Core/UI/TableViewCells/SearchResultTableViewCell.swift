@@ -7,10 +7,6 @@
 
 import UIKit
 
-// NOTE: - It may be a bit confusing but from projects
-// that i've been writing previously i used "passive" viewModels
-// that do nothing and only have computed properties for
-// formatted string or that kind of stuff
 struct SearchResultViewModel {
     let id: Int
     let title: String
