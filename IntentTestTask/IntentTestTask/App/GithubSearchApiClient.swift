@@ -12,7 +12,7 @@ protocol GithubSearchApiClientInterface: AnyObject {
     func retrieveMoreRepositories(onComplete: @escaping GithubSearchApiClient.RepositoryRetrieveResponse)
 }
 
-class GithubSearchApiClient: GithubSearchApiClientInterface {
+final class GithubSearchApiClient: GithubSearchApiClientInterface {
     typealias RepositoryRetrieveResponse = (Result<GithubRepositorySearchResponsePayload?, IntentTestTaskError>) -> Void
     
     // MARK: - Properties

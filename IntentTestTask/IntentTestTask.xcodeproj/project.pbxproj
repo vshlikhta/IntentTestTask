@@ -10,6 +10,9 @@
 		3B9120812681D3CF0087D08A /* RepositorySearchResultsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120802681D3CF0087D08A /* RepositorySearchResultsDataManager.swift */; };
 		3B9120832681F7570087D08A /* UIViewController+ErrorPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120822681F7570087D08A /* UIViewController+ErrorPresentable.swift */; };
 		3B9120852681F7840087D08A /* IntentTestTaskAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120842681F7840087D08A /* IntentTestTaskAlert.swift */; };
+		3B912087268319180087D08A /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B912086268319180087D08A /* HTTPMethod.swift */; };
+		3B9120892683192E0087D08A /* URLRequest+HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120882683192E0087D08A /* URLRequest+HTTPMethod.swift */; };
+		3B91208B2683194F0087D08A /* IntentTestTaskRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208A2683194F0087D08A /* IntentTestTaskRequest.swift */; };
 		3BC520F5266FB18F00D7C805 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F4266FB18F00D7C805 /* AppDelegate.swift */; };
 		3BC520F7266FB18F00D7C805 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */; };
 		3BC520F9266FB18F00D7C805 /* RepositorySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F8266FB18F00D7C805 /* RepositorySearchViewController.swift */; };
@@ -48,6 +51,9 @@
 		3B9120802681D3CF0087D08A /* RepositorySearchResultsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySearchResultsDataManager.swift; sourceTree = "<group>"; };
 		3B9120822681F7570087D08A /* UIViewController+ErrorPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorPresentable.swift"; sourceTree = "<group>"; };
 		3B9120842681F7840087D08A /* IntentTestTaskAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentTestTaskAlert.swift; sourceTree = "<group>"; };
+		3B912086268319180087D08A /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		3B9120882683192E0087D08A /* URLRequest+HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+HTTPMethod.swift"; sourceTree = "<group>"; };
+		3B91208A2683194F0087D08A /* IntentTestTaskRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentTestTaskRequest.swift; sourceTree = "<group>"; };
 		3BC520F1266FB18F00D7C805 /* IntentTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntentTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC520F4266FB18F00D7C805 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				3BC52113266FBCF600D7C805 /* UITableView+CellReusable.swift */,
+				3B9120882683192E0087D08A /* URLRequest+HTTPMethod.swift */,
 				3B9120822681F7570087D08A /* UIViewController+ErrorPresentable.swift */,
 				3BC5213F26738D5400D7C805 /* URLResponse+StatusCode.swift */,
 				3BC5214326738FBE00D7C805 /* String+Incremented.swift */,
@@ -221,6 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				3BC5213926734C8400D7C805 /* GithubRepositorySearchResponsePayload.swift */,
+				3B91208A2683194F0087D08A /* IntentTestTaskRequest.swift */,
+				3B912086268319180087D08A /* HTTPMethod.swift */,
 				3BC5213B26734C9500D7C805 /* GithubRepositorySearchItemResponse.swift */,
 			);
 			path = Models;
@@ -297,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B9120892683192E0087D08A /* URLRequest+HTTPMethod.swift in Sources */,
 				3BC52125266FC54C00D7C805 /* ControllerReloadable.swift in Sources */,
 				3B9120852681F7840087D08A /* IntentTestTaskAlert.swift in Sources */,
 				3BC5213E2673551900D7C805 /* String+BulletPoint.swift in Sources */,
@@ -308,7 +318,9 @@
 				3BC5213A26734C8400D7C805 /* GithubRepositorySearchResponsePayload.swift in Sources */,
 				3BC5214226738EAA00D7C805 /* Array+ElementAt.swift in Sources */,
 				3BC52118266FBE2700D7C805 /* Disposable.swift in Sources */,
+				3B91208B2683194F0087D08A /* IntentTestTaskRequest.swift in Sources */,
 				3BC52133266FDBBE00D7C805 /* QueueManager.swift in Sources */,
+				3B912087268319180087D08A /* HTTPMethod.swift in Sources */,
 				3BC520F5266FB18F00D7C805 /* AppDelegate.swift in Sources */,
 				3BC52131266FDA7600D7C805 /* HTTPManager.swift in Sources */,
 				3BC52120266FC42B00D7C805 /* Executor.swift in Sources */,

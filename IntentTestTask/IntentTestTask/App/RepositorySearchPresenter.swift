@@ -14,7 +14,7 @@ protocol RepositorySearchTableDataProvider: AnyObject {
     func viewModel(for row: Int) -> SearchResultViewModel?
 }
 
-class RepositorySearchPresenter {
+final class RepositorySearchPresenter {
     
     enum State {
         case loading
@@ -34,6 +34,8 @@ class RepositorySearchPresenter {
     private let storage = RepositorySearchResultsDataManager()
     
     private weak var controller: RepositorySearchViewControllerInterface?
+    
+    // MARK: - Constructor
     
     init(with controller: RepositorySearchViewControllerInterface) {
         self.controller = controller
@@ -59,19 +61,9 @@ class RepositorySearchPresenter {
             self?.didSelectSearchResult(at: row)
         }.add(to: &disposeBag)
     }
-}
-
-extension RepositorySearchPresenter: RepositorySearchTableDataProvider {
-    var numberOfItems: Int {
-        return storage.searchResultsObservable.value.count
-    }
     
-    func viewModel(for row: Int) -> SearchResultViewModel? {
-        return storage.searchResultsObservable.value.element(at: row)
-    }
-}
-
-extension RepositorySearchPresenter {
+    // MARK: - Methods
+    
     private func requestRepositories(for query: String?) {
         internalState.value = .loading
         apiClient.loadRepositories(for: query) { [weak self] result in
@@ -107,5 +99,16 @@ extension RepositorySearchPresenter {
         Executor.main.execute {
             try? self.controller?.open(itemData?.url)
         }
+    }
+}
+
+// MARK: - RepositorySearchTableDataProvider
+extension RepositorySearchPresenter: RepositorySearchTableDataProvider {
+    var numberOfItems: Int {
+        return storage.searchResultsObservable.value.count
+    }
+    
+    func viewModel(for row: Int) -> SearchResultViewModel? {
+        return storage.searchResultsObservable.value.element(at: row)
     }
 }

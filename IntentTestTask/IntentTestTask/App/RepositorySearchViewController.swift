@@ -78,6 +78,7 @@ class RepositorySearchViewController: UIViewController {
     }
 }
 
+// MARK: - RepositorySearchViewControllerInterface
 extension RepositorySearchViewController: RepositorySearchViewControllerInterface {
     var requestSearchResultsObservable: ImmutableObservable<SearchRequest> {
         return requestSearchResultsSubject.immutable

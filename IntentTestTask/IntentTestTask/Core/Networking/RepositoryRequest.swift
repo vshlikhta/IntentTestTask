@@ -49,37 +49,3 @@ enum RepositoryRequest {
         }
     }
 }
-
-enum IntentTestTaskRequest {
-    
-    static var components: URLComponents {
-        var components = URLComponents()
-        components.scheme = Constants.Github.scheme
-        components.host = Constants.Github.host
-        
-        return components
-    }
-    
-    static func components(path: String) -> URLComponents {
-        var componentsWithPath = components
-        componentsWithPath.path = path
-        return componentsWithPath
-    }
-}
-
-enum HTTPMethod: String {
-    case GET
-    case POST
-    case PUT
-    case DELETE
-}
-
-extension URLRequest {
-    mutating func set(_ httpMethod: HTTPMethod) {
-        self.httpMethod = httpMethod.rawValue
-    }
-    
-    mutating func addAcceptHeader() {
-        self.addValue("application/json", forHTTPHeaderField: "Accept")
-    }
-}

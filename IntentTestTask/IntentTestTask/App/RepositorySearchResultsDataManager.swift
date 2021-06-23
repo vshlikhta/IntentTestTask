@@ -15,20 +15,20 @@ protocol GithubSearchResultsDataManagerInterface: AnyObject {
     func item(with id: Int) -> GithubRepositorySearchItemResponse?
 }
 
-class RepositorySearchResultsDataManager {
+final class RepositorySearchResultsDataManager {
     
     enum DataOrigin {
         case new
         case additional
     }
     
+    // MARK: - Properties
+    
     private var searchResultsSubject: Observable<[SearchResultViewModel]> = .init([])
     
     private var storage = [GithubRepositorySearchResponsePayload]()
     private var storageItems: [GithubRepositorySearchItemResponse] {
-        return storage
-            .map(\.items)
-            .flatMap { $0 }
+        return storage.map(\.items).flatMap { $0 }
     }
     
     private var searchResultItems: [SearchResultViewModel] {
@@ -36,6 +36,7 @@ class RepositorySearchResultsDataManager {
     }
 }
 
+// MARK: - GithubSearchResultsDataManagerInterface
 extension RepositorySearchResultsDataManager: GithubSearchResultsDataManagerInterface {
     var isMoreAvailable: Bool {
         return storage.last?.isLastResult == false
