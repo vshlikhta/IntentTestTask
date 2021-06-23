@@ -11,11 +11,11 @@ protocol GithubSearchResultsDataManagerInterface: AnyObject {
     var searchResultsObservable: ImmutableObservable<[SearchResultViewModel]> { get }
     var isMoreAvailable: Bool { get }
     
-    func store(_ type: GithubSearchResultsDataManager.DataOrigin, _ searchResult: GithubRepositorySearchResponsePayload)
+    func store(_ type: RepositorySearchResultsDataManager.DataOrigin, _ searchResult: GithubRepositorySearchResponsePayload)
     func item(with id: Int) -> GithubRepositorySearchItemResponse?
 }
 
-class GithubSearchResultsDataManager {
+class RepositorySearchResultsDataManager {
     
     enum DataOrigin {
         case new
@@ -36,7 +36,7 @@ class GithubSearchResultsDataManager {
     }
 }
 
-extension GithubSearchResultsDataManager: GithubSearchResultsDataManagerInterface {
+extension RepositorySearchResultsDataManager: GithubSearchResultsDataManagerInterface {
     var isMoreAvailable: Bool {
         return storage.last?.isLastResult == false
     }

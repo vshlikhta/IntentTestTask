@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol GithubSearchViewControllerInterface: ControllerReloadable, URLOpenable, ErrorPresentable {
+protocol RepositorySearchViewControllerInterface: ControllerReloadable, URLOpenable, ErrorPresentable {
     var requestSearchResultsObservable: ImmutableObservable<RepositorySearchViewController.SearchRequest> { get }
     var searchResultSelectObservable: ImmutableObservable<Int?> { get }
 }
@@ -22,8 +22,8 @@ class RepositorySearchViewController: UIViewController {
     
     // MARK: - Properties
     
-    private lazy var presenter: GithubSearchPresenterInterface = {
-        return GithubSearchPresenter(with: self)
+    private lazy var presenter: RepositorySearchTableDataProvider = {
+        return RepositorySearchPresenter(with: self)
     }()
     private var disposeBag = Disposal()
     private var requestSearchResultsSubject: Observable<SearchRequest> = .init(.initial)
@@ -78,7 +78,7 @@ class RepositorySearchViewController: UIViewController {
     }
 }
 
-extension RepositorySearchViewController: GithubSearchViewControllerInterface {
+extension RepositorySearchViewController: RepositorySearchViewControllerInterface {
     var requestSearchResultsObservable: ImmutableObservable<SearchRequest> {
         return requestSearchResultsSubject.immutable
     }

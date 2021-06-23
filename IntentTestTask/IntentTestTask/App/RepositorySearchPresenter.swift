@@ -7,16 +7,14 @@
 
 import Foundation
 
-protocol GithubSearchTableDataProvider: AnyObject {
-    var state: ImmutableObservable<GithubSearchPresenter.State> { get }
+protocol RepositorySearchTableDataProvider: AnyObject {
+    var state: ImmutableObservable<RepositorySearchPresenter.State> { get }
     var numberOfItems: Int { get }
     
     func viewModel(for row: Int) -> SearchResultViewModel?
 }
 
-typealias GithubSearchPresenterInterface = GithubSearchTableDataProvider
-
-class GithubSearchPresenter {
+class RepositorySearchPresenter {
     
     enum State {
         case loading
@@ -33,11 +31,11 @@ class GithubSearchPresenter {
     private var disposeBag = Disposal()
     
     private let apiClient: GithubSearchApiClientInterface = GithubSearchApiClient()
-    private let storage = GithubSearchResultsDataManager()
+    private let storage = RepositorySearchResultsDataManager()
     
-    private weak var controller: GithubSearchViewControllerInterface?
+    private weak var controller: RepositorySearchViewControllerInterface?
     
-    init(with controller: GithubSearchViewControllerInterface) {
+    init(with controller: RepositorySearchViewControllerInterface) {
         self.controller = controller
         
         storage.searchResultsObservable.observe { [weak self] _, _ in
@@ -63,7 +61,7 @@ class GithubSearchPresenter {
     }
 }
 
-extension GithubSearchPresenter: GithubSearchTableDataProvider {
+extension RepositorySearchPresenter: RepositorySearchTableDataProvider {
     var numberOfItems: Int {
         return storage.searchResultsObservable.value.count
     }
@@ -73,7 +71,7 @@ extension GithubSearchPresenter: GithubSearchTableDataProvider {
     }
 }
 
-extension GithubSearchPresenter {
+extension RepositorySearchPresenter {
     private func requestRepositories(for query: String?) {
         internalState.value = .loading
         apiClient.loadRepositories(for: query) { [weak self] result in
