@@ -41,7 +41,7 @@ class HTTPManager<T: URLSessionProtocol> {
                 return
             }
             
-            if let statusCode = response?.statCode, (200..<300).contains(statusCode) {
+            if let statusCode = response?.statCode, (200..<300).contains(statusCode) == false {
                 onComplete(.failure(.badStatusCode(value: statusCode)))
                 return
             }
