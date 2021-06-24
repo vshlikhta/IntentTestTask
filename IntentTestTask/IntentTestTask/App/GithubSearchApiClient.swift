@@ -12,7 +12,7 @@ protocol GithubSearchApiClientInterface: AnyObject {
     func retrieveMoreRepositories(onComplete: @escaping GithubSearchApiClient.RepositoryRetrieveResponse)
 }
 
-final class GithubSearchApiClient: GithubSearchApiClientInterface {
+final class GithubSearchApiClient: GithubSearchApiClientInterface, RequestExecutable {
     typealias RepositoryRetrieveResponse = (Result<GithubRepositorySearchResponsePayload?, IntentTestTaskError>) -> Void
     
     // MARK: - Properties
@@ -25,16 +25,12 @@ final class GithubSearchApiClient: GithubSearchApiClientInterface {
     // MARK: - Methods
     
     func loadRepositories(for query: String?, onComplete: @escaping RepositoryRetrieveResponse) {
-        queueManager.cancelAllOperations()
-        lastRetrieveRequest = nil
         retrieveRepositoryList(for: query, page: "1", onComplete)
     }
     
     func retrieveMoreRepositories(onComplete: @escaping RepositoryRetrieveResponse) {
         if case .repositoryList(let query, let page) = lastRetrieveRequest {
-            retrieveRepositoryList(for: query,
-                                   page: page.incremented,
-                                   onComplete)
+            retrieveRepositoryList(for: query, page: page.incremented, onComplete)
         }
     }
     
@@ -43,36 +39,14 @@ final class GithubSearchApiClient: GithubSearchApiClientInterface {
                                         _ onComplete: @escaping RepositoryRetrieveResponse) {
         let retrieveRequest = RepositoryRequest.repositoryList(query: query, page: page)
         
-        guard let mutableRequest = try? retrieveRequest.getMutableRequest() else { return }
-        
-        let fetch = RepositoryListRetrievalOperation(request: mutableRequest,
-                                                     httpManager: httpManager)
-        fetch.completionHandler = { [weak self] result in
-            if case .failure(let err) = result {
-                self?.queueManager.cancelAllOperations()
-                onComplete(.failure(err))
-            }
-        }
-        
-        let parse = RepositoryListDecodeOperation()
-        
-        parse.completionHandler = { [weak self] result in
+        execute(request: retrieveRequest) { [weak self] (result: Result<GithubRepositorySearchResponsePayload?, IntentTestTaskError>) in
             switch result {
             case .success(let data):
                 self?.lastRetrieveRequest = retrieveRequest
                 onComplete(.success(data))
-            case .failure(let err):
-                onComplete(.failure(err))
+            case .failure(let error):
+                onComplete(.failure(error))
             }
         }
-        
-        let adapter = BlockOperation() { [unowned fetch, unowned parse] in
-            parse.dataFetched = fetch.dataFetched
-        }
-        
-        adapter.addDependency(fetch)
-        parse.addDependency(adapter)
-        
-        queueManager.addOperations([fetch, adapter, parse])
     }
 }

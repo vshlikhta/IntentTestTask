@@ -10,6 +10,8 @@ import Foundation
 enum IntentTestTaskError: Error {
     
     case general
+    case corruptedRequest
+    case missingData
     case badStatusCode(value: Int)
     case corruptedData
     case custom(error: Error)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum RepositoryRequest {
+enum RepositoryRequest: GettableRequest {
     
     case repositoryList(query: String?, page: String)
     

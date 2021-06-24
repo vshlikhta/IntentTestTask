@@ -13,6 +13,7 @@
 		3B912087268319180087D08A /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B912086268319180087D08A /* HTTPMethod.swift */; };
 		3B9120892683192E0087D08A /* URLRequest+HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120882683192E0087D08A /* URLRequest+HTTPMethod.swift */; };
 		3B91208B2683194F0087D08A /* IntentTestTaskRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208A2683194F0087D08A /* IntentTestTaskRequest.swift */; };
+		3B91208D26845F590087D08A /* RequestExecutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208C26845F590087D08A /* RequestExecutable.swift */; };
 		3BC520F5266FB18F00D7C805 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F4266FB18F00D7C805 /* AppDelegate.swift */; };
 		3BC520F7266FB18F00D7C805 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */; };
 		3BC520F9266FB18F00D7C805 /* RepositorySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F8266FB18F00D7C805 /* RepositorySearchViewController.swift */; };
@@ -32,12 +33,8 @@
 		3BC52122266FC44200D7C805 /* IDGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC52121266FC44200D7C805 /* IDGen.swift */; };
 		3BC52125266FC54C00D7C805 /* ControllerReloadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC52124266FC54C00D7C805 /* ControllerReloadable.swift */; };
 		3BC52127266FC60100D7C805 /* GithubSearchApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC52126266FC60100D7C805 /* GithubSearchApiClient.swift */; };
-		3BC52129266FCC1A00D7C805 /* NetworkRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC52128266FCC1A00D7C805 /* NetworkRequestOperation.swift */; };
-		3BC5212B266FCD7900D7C805 /* RepositoryListDecodeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5212A266FCD7900D7C805 /* RepositoryListDecodeOperation.swift */; };
 		3BC5212D266FCDB500D7C805 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5212C266FCDB500D7C805 /* Constants.swift */; };
-		3BC5212F266FDA0000D7C805 /* RepositoryListRetrievalOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5212E266FDA0000D7C805 /* RepositoryListRetrievalOperation.swift */; };
 		3BC52131266FDA7600D7C805 /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC52130266FDA7600D7C805 /* HTTPManager.swift */; };
-		3BC52133266FDBBE00D7C805 /* QueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC52132266FDBBE00D7C805 /* QueueManager.swift */; };
 		3BC521362673461F00D7C805 /* RepositoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC521352673461F00D7C805 /* RepositoryRequest.swift */; };
 		3BC5213A26734C8400D7C805 /* GithubRepositorySearchResponsePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5213926734C8400D7C805 /* GithubRepositorySearchResponsePayload.swift */; };
 		3BC5213C26734C9500D7C805 /* GithubRepositorySearchItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5213B26734C9500D7C805 /* GithubRepositorySearchItemResponse.swift */; };
@@ -54,6 +51,7 @@
 		3B912086268319180087D08A /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		3B9120882683192E0087D08A /* URLRequest+HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+HTTPMethod.swift"; sourceTree = "<group>"; };
 		3B91208A2683194F0087D08A /* IntentTestTaskRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentTestTaskRequest.swift; sourceTree = "<group>"; };
+		3B91208C26845F590087D08A /* RequestExecutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutable.swift; sourceTree = "<group>"; };
 		3BC520F1266FB18F00D7C805 /* IntentTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntentTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC520F4266FB18F00D7C805 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,12 +73,8 @@
 		3BC52121266FC44200D7C805 /* IDGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDGen.swift; sourceTree = "<group>"; };
 		3BC52124266FC54C00D7C805 /* ControllerReloadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerReloadable.swift; sourceTree = "<group>"; };
 		3BC52126266FC60100D7C805 /* GithubSearchApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchApiClient.swift; sourceTree = "<group>"; };
-		3BC52128266FCC1A00D7C805 /* NetworkRequestOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestOperation.swift; sourceTree = "<group>"; };
-		3BC5212A266FCD7900D7C805 /* RepositoryListDecodeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListDecodeOperation.swift; sourceTree = "<group>"; };
 		3BC5212C266FCDB500D7C805 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		3BC5212E266FDA0000D7C805 /* RepositoryListRetrievalOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListRetrievalOperation.swift; sourceTree = "<group>"; };
 		3BC52130266FDA7600D7C805 /* HTTPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
-		3BC52132266FDBBE00D7C805 /* QueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueManager.swift; sourceTree = "<group>"; };
 		3BC521352673461F00D7C805 /* RepositoryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryRequest.swift; sourceTree = "<group>"; };
 		3BC5213926734C8400D7C805 /* GithubRepositorySearchResponsePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositorySearchResponsePayload.swift; sourceTree = "<group>"; };
 		3BC5213B26734C9500D7C805 /* GithubRepositorySearchItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositorySearchItemResponse.swift; sourceTree = "<group>"; };
@@ -122,7 +116,6 @@
 			children = (
 				3BC520F4266FB18F00D7C805 /* AppDelegate.swift */,
 				3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */,
-				3BC5212C266FCDB500D7C805 /* Constants.swift */,
 				3BC5210F266FBCC400D7C805 /* App */,
 				3BC52110266FBCCA00D7C805 /* Core */,
 				3BC520FD266FB19100D7C805 /* Assets.xcassets */,
@@ -163,15 +156,14 @@
 			isa = PBXGroup;
 			children = (
 				3BC5213726734C6B00D7C805 /* Networking */,
-				3BC521342673460300D7C805 /* Operations */,
 				3BC52111266FBCD100D7C805 /* UI */,
 				3BC5210E266FBCBC00D7C805 /* Extensions */,
 				3BC52123266FC47800D7C805 /* Observable */,
 				3BC52121266FC44200D7C805 /* IDGen.swift */,
 				3BC52130266FDA7600D7C805 /* HTTPManager.swift */,
 				3BC52124266FC54C00D7C805 /* ControllerReloadable.swift */,
-				3BC52132266FDBBE00D7C805 /* QueueManager.swift */,
 				3BC5211F266FC42B00D7C805 /* Executor.swift */,
+				3BC5212C266FCDB500D7C805 /* Constants.swift */,
 				3B9120842681F7840087D08A /* IntentTestTaskAlert.swift */,
 			);
 			path = Core;
@@ -204,20 +196,11 @@
 			path = Observable;
 			sourceTree = "<group>";
 		};
-		3BC521342673460300D7C805 /* Operations */ = {
-			isa = PBXGroup;
-			children = (
-				3BC52128266FCC1A00D7C805 /* NetworkRequestOperation.swift */,
-				3BC5212A266FCD7900D7C805 /* RepositoryListDecodeOperation.swift */,
-				3BC5212E266FDA0000D7C805 /* RepositoryListRetrievalOperation.swift */,
-			);
-			path = Operations;
-			sourceTree = "<group>";
-		};
 		3BC5213726734C6B00D7C805 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
 				3BC5211D266FC3BD00D7C805 /* IntentTestTaskError.swift */,
+				3B91208C26845F590087D08A /* RequestExecutable.swift */,
 				3BC521352673461F00D7C805 /* RepositoryRequest.swift */,
 				3BC5213826734C7800D7C805 /* Models */,
 			);
@@ -313,13 +296,11 @@
 				3BC5211E266FC3BD00D7C805 /* IntentTestTaskError.swift in Sources */,
 				3BC520F9266FB18F00D7C805 /* RepositorySearchViewController.swift in Sources */,
 				3BC52122266FC44200D7C805 /* IDGen.swift in Sources */,
-				3BC5212F266FDA0000D7C805 /* RepositoryListRetrievalOperation.swift in Sources */,
 				3BC521362673461F00D7C805 /* RepositoryRequest.swift in Sources */,
 				3BC5213A26734C8400D7C805 /* GithubRepositorySearchResponsePayload.swift in Sources */,
 				3BC5214226738EAA00D7C805 /* Array+ElementAt.swift in Sources */,
 				3BC52118266FBE2700D7C805 /* Disposable.swift in Sources */,
 				3B91208B2683194F0087D08A /* IntentTestTaskRequest.swift in Sources */,
-				3BC52133266FDBBE00D7C805 /* QueueManager.swift in Sources */,
 				3B912087268319180087D08A /* HTTPMethod.swift in Sources */,
 				3BC520F5266FB18F00D7C805 /* AppDelegate.swift in Sources */,
 				3BC52131266FDA7600D7C805 /* HTTPManager.swift in Sources */,
@@ -328,12 +309,11 @@
 				3BC52114266FBCF600D7C805 /* UITableView+CellReusable.swift in Sources */,
 				3B9120812681D3CF0087D08A /* RepositorySearchResultsDataManager.swift in Sources */,
 				3B9120832681F7570087D08A /* UIViewController+ErrorPresentable.swift in Sources */,
+				3B91208D26845F590087D08A /* RequestExecutable.swift in Sources */,
 				3BC5211A266FBE3F00D7C805 /* Lock.swift in Sources */,
 				3BC52116266FBE1100D7C805 /* Observable.swift in Sources */,
-				3BC5212B266FCD7900D7C805 /* RepositoryListDecodeOperation.swift in Sources */,
 				3BC52109266FB4F400D7C805 /* SearchResultTableViewCell.swift in Sources */,
 				3BC5213C26734C9500D7C805 /* GithubRepositorySearchItemResponse.swift in Sources */,
-				3BC52129266FCC1A00D7C805 /* NetworkRequestOperation.swift in Sources */,
 				3BC5211C266FC33900D7C805 /* UIViewController+URLOpenable.swift in Sources */,
 				3BC5214426738FBE00D7C805 /* String+Incremented.swift in Sources */,
 				3BC5210D266FBBC300D7C805 /* RepositorySearchPresenter.swift in Sources */,
