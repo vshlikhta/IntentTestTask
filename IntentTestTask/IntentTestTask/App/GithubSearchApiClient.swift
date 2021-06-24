@@ -17,9 +17,6 @@ final class GithubSearchApiClient: GithubSearchApiClientInterface, RequestExecut
     
     // MARK: - Properties
     
-    private let queueManager = QueueManager.shared
-    private let httpManager = HTTPManager(session: URLSession.shared)
-    
     private var lastRetrieveRequest: RepositoryRequest?
     
     // MARK: - Methods
