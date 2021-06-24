@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum Constants {
-    enum Github {
+struct Constants {
+    struct Github {
         static let scheme: String = "https"
         static let host: String = "api.github.com"
     }
