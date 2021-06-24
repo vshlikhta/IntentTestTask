@@ -14,6 +14,7 @@
 		3B9120892683192E0087D08A /* URLRequest+HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120882683192E0087D08A /* URLRequest+HTTPMethod.swift */; };
 		3B91208B2683194F0087D08A /* IntentTestTaskRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208A2683194F0087D08A /* IntentTestTaskRequest.swift */; };
 		3B91208D26845F590087D08A /* RequestExecutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208C26845F590087D08A /* RequestExecutable.swift */; };
+		3B91208F268475E70087D08A /* Int+AsIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208E268475E70087D08A /* Int+AsIndex.swift */; };
 		3BC520F5266FB18F00D7C805 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F4266FB18F00D7C805 /* AppDelegate.swift */; };
 		3BC520F7266FB18F00D7C805 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */; };
 		3BC520F9266FB18F00D7C805 /* RepositorySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F8266FB18F00D7C805 /* RepositorySearchViewController.swift */; };
@@ -52,6 +53,7 @@
 		3B9120882683192E0087D08A /* URLRequest+HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+HTTPMethod.swift"; sourceTree = "<group>"; };
 		3B91208A2683194F0087D08A /* IntentTestTaskRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentTestTaskRequest.swift; sourceTree = "<group>"; };
 		3B91208C26845F590087D08A /* RequestExecutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutable.swift; sourceTree = "<group>"; };
+		3B91208E268475E70087D08A /* Int+AsIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+AsIndex.swift"; sourceTree = "<group>"; };
 		3BC520F1266FB18F00D7C805 /* IntentTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntentTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC520F4266FB18F00D7C805 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				3BC52113266FBCF600D7C805 /* UITableView+CellReusable.swift */,
+				3B91208E268475E70087D08A /* Int+AsIndex.swift */,
 				3B9120882683192E0087D08A /* URLRequest+HTTPMethod.swift */,
 				3B9120822681F7570087D08A /* UIViewController+ErrorPresentable.swift */,
 				3BC5213F26738D5400D7C805 /* URLResponse+StatusCode.swift */,
@@ -303,6 +306,7 @@
 				3B91208B2683194F0087D08A /* IntentTestTaskRequest.swift in Sources */,
 				3B912087268319180087D08A /* HTTPMethod.swift in Sources */,
 				3BC520F5266FB18F00D7C805 /* AppDelegate.swift in Sources */,
+				3B91208F268475E70087D08A /* Int+AsIndex.swift in Sources */,
 				3BC52131266FDA7600D7C805 /* HTTPManager.swift in Sources */,
 				3BC52120266FC42B00D7C805 /* Executor.swift in Sources */,
 				3BC52127266FC60100D7C805 /* GithubSearchApiClient.swift in Sources */,

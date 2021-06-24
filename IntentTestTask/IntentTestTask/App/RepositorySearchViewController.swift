@@ -42,7 +42,7 @@ class RepositorySearchViewController: UIViewController {
     
     @IBOutlet private weak var searchResultsTableView: UITableView! {
         didSet {
-            searchResultsTableView.estimatedRowHeight = 200
+            searchResultsTableView.estimatedRowHeight = Constants.RepositoryList.UI.defaultRowHeight
             searchResultsTableView.rowHeight = UITableView.automaticDimension
             searchResultsTableView.tableFooterView = UIView()
             
@@ -111,13 +111,13 @@ extension RepositorySearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if shouldLoadMoreItems(forRowAt: indexPath) {
+        if didScrollToLastElement(for: indexPath) {
             requestSearchResultsSubject.value = .more
         }
     }
     
-    private func shouldLoadMoreItems(forRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.row.distance(to: presenter.numberOfItems) < 3
+    private func didScrollToLastElement(for indexPath: IndexPath) -> Bool {
+        return indexPath.row == presenter.numberOfItems.asIndex
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Constants {
     struct Github {
@@ -15,4 +16,10 @@ struct Constants {
     }
     
     static let baseURL: String = "https://api.github.com/search/repositories"
+    
+    struct RepositoryList {
+        struct UI {
+            static let defaultRowHeight: CGFloat = 200
+        }
+    }
 }
