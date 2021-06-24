@@ -11,6 +11,7 @@ struct Constants {
     struct Github {
         static let scheme: String = "https"
         static let host: String = "api.github.com"
+        static let defaultPage: String = "1"
     }
     
     static let baseURL: String = "https://api.github.com/search/repositories"

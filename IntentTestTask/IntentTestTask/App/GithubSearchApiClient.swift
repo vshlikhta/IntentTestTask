@@ -22,7 +22,7 @@ final class GithubSearchApiClient: GithubSearchApiClientInterface, RequestExecut
     // MARK: - Methods
     
     func loadRepositories(for query: String?, onComplete: @escaping RepositoryRetrieveResponse) {
-        retrieveRepositoryList(for: query, page: "1", onComplete)
+        retrieveRepositoryList(for: query, page: Constants.Github.defaultPage, onComplete)
     }
     
     func retrieveMoreRepositories(onComplete: @escaping RepositoryRetrieveResponse) {
