@@ -47,33 +47,53 @@ final class RepositorySearchResultsDataManagerTests: XCTestCase {
         XCTAssertNil(sut.item(with: .dummyId))
     }
     
-    func test_ItemWithId_itemsContainsSeachedElementReturnsCorrectItem() {
-        let stub: GithubRepositorySearchItemResponse = .make()
-        let sut = makeSUT(items: [.make(items: [stub])])
+    func test_itemWithId_itemsContainsSeachedElementReturnsCorrectItem() {
+        let expectedResult: GithubRepositorySearchItemResponse = .make()
+        let sut = makeSUT(items: [.make(items: [expectedResult])])
         
-        XCTAssertEqual(stub, sut.item(with: stub.id))
+        XCTAssertEqual(expectedResult, sut.item(with: expectedResult.id))
     }
     
-    func test_ItemWithId_itemsContainsSearchedElementInMultipleElementsReturnsCorrectItem() {
-        let stub: GithubRepositorySearchItemResponse = .make()
-        let alteredStub: GithubRepositorySearchItemResponse = .make(id: stub.id.incremented)
+    func test_itemWithId_itemsContainsSearchedElementInMultipleElementsReturnsCorrectItem() {
+        let expectedResult: GithubRepositorySearchItemResponse = .make()
+        let additionalResult: GithubRepositorySearchItemResponse = .make(id: expectedResult.id.incremented)
+        let sut = makeSUT(items: [.make(items: [expectedResult, additionalResult])])
         
-        let sut = makeSUT(items: [.make(items: [stub, alteredStub])])
-        
-        XCTAssertEqual(stub, sut.item(with: stub.id))
+        XCTAssertEqual(expectedResult, sut.item(with: expectedResult.id))
     }
     
-    func test_ItemWithId_itemsMissingSearchedElementInMultipleElementsReturnsNil() {
+    func test_itemWithId_itemsMissingSearchedElementInMultipleElementsReturnsNil() {
         let stub: GithubRepositorySearchItemResponse = .make()
         let alteredStub: GithubRepositorySearchItemResponse = .make(id: stub.id.incremented)
-        
         let sut = makeSUT(items: [.make(items: [stub])])
         
         XCTAssertNil(sut.item(with: alteredStub.id))
     }
     
-    func test_storeTypeSearchResult_newItemStoredReplacingPrevious() {
+    func test_storeTypeSearchResult_storageSavedNewArray() {
+        let oldResult: GithubRepositorySearchResponsePayload = .make(items: [.make(id: 0)])
+        let newResult: GithubRepositorySearchResponsePayload = .make(items: [.make(id: 1)])
+        let spyRepositoryStorage = SpyGithubRepositorySearchResponseStorage()
+        let sut = makeSUT(storage: spyRepositoryStorage)
         
+        sut.store(.new, oldResult)
+        XCTAssertEqual(spyRepositoryStorage.items, [oldResult])
+        
+        sut.store(.new, newResult)
+        XCTAssertEqual(spyRepositoryStorage.items, [newResult])
+    }
+    
+    func test_storeTypeSearchResult_storageSavedAdditional() {
+        let oldResult: GithubRepositorySearchResponsePayload = .make(items: [.make(id: 0)])
+        let newResult: GithubRepositorySearchResponsePayload = .make(items: [.make(id: 1)])
+        let expectedResult = [oldResult, newResult]
+        let spyRepositoryStorage = SpyGithubRepositorySearchResponseStorage()
+        let sut = makeSUT(storage: spyRepositoryStorage)
+        
+        sut.store(.additional, oldResult)
+        sut.store(.additional, newResult)
+        
+        XCTAssertEqual(spyRepositoryStorage.items, expectedResult)
     }
     
     // MARK: - Helpers
@@ -93,10 +113,22 @@ private extension Int {
     static var dummyId: Int {
         return -1
     }
+    
+    static var dummyTotalCount: Int {
+        return -1
+    }
+}
+
+private final class SpyGithubRepositorySearchResponseStorage: GithubRepositorySearchResponseStorage {
+    var items: [GithubRepositorySearchResponsePayload] = .init()
 }
 
 private final class StubGithubRepositorySearchResponseStorage: GithubRepositorySearchResponseStorage {
     var items: [GithubRepositorySearchResponsePayload] = .init()
+    
+    internal init(items: [GithubRepositorySearchResponsePayload] = .init()) {
+        self.items = items
+    }
 }
 
 private extension GithubRepositorySearchResponsePayload {

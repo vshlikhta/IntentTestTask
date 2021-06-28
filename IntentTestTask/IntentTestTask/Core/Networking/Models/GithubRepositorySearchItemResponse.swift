@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GithubRepositorySearchItemResponse: Decodable {
+struct GithubRepositorySearchItemResponse: Decodable, Equatable {
     let id: Int
     let fullName: String
     let description: String?
@@ -22,15 +22,5 @@ struct GithubRepositorySearchItemResponse: Decodable {
         case url = "html_url"
         case description
         case language
-    }
-}
-
-extension GithubRepositorySearchItemResponse: Equatable {
-    static func == (lhs: GithubRepositorySearchItemResponse, rhs: GithubRepositorySearchItemResponse) -> Bool {
-        return lhs.fullName == rhs.fullName &&
-            lhs.id == rhs.id &&
-            lhs.isPrivate == rhs.isPrivate &&
-            lhs.language == rhs.language &&
-            lhs.language == rhs.language
     }
 }
