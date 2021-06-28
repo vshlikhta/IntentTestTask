@@ -10,87 +10,82 @@ import XCTest
 
 final class RepositorySearchResultsDataManagerTests: XCTestCase {
     func test_itemsIsEmpty_isMoreAvailableEqualFalse() {
-        let responseStorage = StubGithubRepositorySearchResponseStorage()
-        responseStorage.items = []
-        let sut = makeSUT(storage: responseStorage)
+        let sut = makeSUT(items: [])
         
         XCTAssertFalse(sut.isMoreAvailable)
     }
     
     func test_itemIsLastResult_isMoreAvailableEqualFalse() {
-        let responseStorage = StubGithubRepositorySearchResponseStorage()
-        responseStorage.items = [.make(isLastResult: true)]
-        let sut = makeSUT(storage: responseStorage)
+        let sut = makeSUT(items: [.make(isLastResult: true)])
         
         XCTAssertFalse(sut.isMoreAvailable)
     }
     
     func test_itemIsLastResultEqualFalse_isMoreAvailableEqualTrue() {
-        let responseStorage = StubGithubRepositorySearchResponseStorage()
-        responseStorage.items = [.make(isLastResult: false)]
-        let sut = makeSUT(storage: responseStorage)
+        let sut = makeSUT(items: [.make(isLastResult: false)])
         
         XCTAssertTrue(sut.isMoreAvailable)
     }
     
     func test_itemsLastItemIsLastResultEqualTrue_isMoreAvailableEqualFalse() {
-        let responseStorage = StubGithubRepositorySearchResponseStorage()
-        responseStorage.items = [.make(isLastResult: false), .make(isLastResult: true)]
-        let sut = makeSUT(storage: responseStorage)
+        let sut = makeSUT(items: [.make(isLastResult: false),
+                                  .make(isLastResult: true)])
         
         XCTAssertFalse(sut.isMoreAvailable)
     }
     
     func test_itemsLastItemIsLastResultEqualFalse_isMoreAvailableEqualTrue() {
-        let responseStorage = StubGithubRepositorySearchResponseStorage()
-        responseStorage.items = [.make(isLastResult: false), .make(isLastResult: false)]
-        let sut = makeSUT(storage: responseStorage)
+        let sut = makeSUT(items: [.make(isLastResult: true),
+                                  .make(isLastResult: false)])
         
         XCTAssertTrue(sut.isMoreAvailable)
     }
     
-    func test_ItemWithId_emptyItemsReturnsNilResult() {
-        let responseStorage = StubGithubRepositorySearchResponseStorage()
-        responseStorage.items = []
-        let sut = makeSUT(storage: responseStorage)
+    func test_itemWithId_emptyItemsReturnsNilResult() {
+        let sut = makeSUT(items: [])
         
         XCTAssertNil(sut.item(with: .dummyId))
     }
     
     func test_ItemWithId_itemsContainsSeachedElementReturnsCorrectItem() {
-        let responseStorage = StubGithubRepositorySearchResponseStorage()
         let stub: GithubRepositorySearchItemResponse = .make()
-        responseStorage.items = [.make(items: [stub])]
-        let sut = makeSUT(storage: responseStorage)
+        let sut = makeSUT(items: [.make(items: [stub])])
         
         XCTAssertEqual(stub, sut.item(with: stub.id))
     }
     
     func test_ItemWithId_itemsContainsSearchedElementInMultipleElementsReturnsCorrectItem() {
-        let responseStorage = StubGithubRepositorySearchResponseStorage()
         let stub: GithubRepositorySearchItemResponse = .make()
         let alteredStub: GithubRepositorySearchItemResponse = .make(id: stub.id.incremented)
-        responseStorage.items = [.make(items: [stub, alteredStub])]
-        let sut = makeSUT(storage: responseStorage)
+        
+        let sut = makeSUT(items: [.make(items: [stub, alteredStub])])
         
         XCTAssertEqual(stub, sut.item(with: stub.id))
     }
     
     func test_ItemWithId_itemsMissingSearchedElementInMultipleElementsReturnsNil() {
-        let responseStorage = StubGithubRepositorySearchResponseStorage()
         let stub: GithubRepositorySearchItemResponse = .make()
-        responseStorage.items = [.make(items: [stub])]
-        let sut = makeSUT(storage: responseStorage)
-        
         let alteredStub: GithubRepositorySearchItemResponse = .make(id: stub.id.incremented)
         
+        let sut = makeSUT(items: [.make(items: [stub])])
+        
         XCTAssertNil(sut.item(with: alteredStub.id))
+    }
+    
+    func test_storeTypeSearchResult_newItemStoredReplacingPrevious() {
+        
     }
     
     // MARK: - Helpers
     
     private func makeSUT(storage: GithubRepositorySearchResponseStorage) -> RepositorySearchResultsDataManager {
         return RepositorySearchResultsDataManager(storage: storage)
+    }
+    
+    private func makeSUT(items: [GithubRepositorySearchResponsePayload]) -> RepositorySearchResultsDataManager {
+        let storage = StubGithubRepositorySearchResponseStorage()
+        storage.items = items
+        return makeSUT(storage: storage)
     }
 }
 
