@@ -9,6 +9,12 @@ import Foundation
 
 extension String {
     var incremented: String {
-        return "\((Int(self) ?? 0) + 1)"
+        return "\((Int(self) ?? 0).incremented)"
+    }
+}
+
+extension Int {
+    var incremented: Int {
+        return self + 1
     }
 }

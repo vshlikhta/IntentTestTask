@@ -7,6 +7,14 @@
 
 import Foundation
 
+protocol GithubRepositorySearchResponseStorage: AnyObject {
+    var items: [GithubRepositorySearchResponsePayload] { get set }
+}
+
+final class DefaultGithubRepositorySearchResponseStorage: GithubRepositorySearchResponseStorage {
+    var items: [GithubRepositorySearchResponsePayload] = .init()
+}
+
 protocol GithubSearchResultsDataManagerInterface: AnyObject {
     var searchResultsObservable: ImmutableObservable<[SearchResultViewModel]> { get }
     var isMoreAvailable: Bool { get }
@@ -24,22 +32,26 @@ final class RepositorySearchResultsDataManager {
     
     // MARK: - Properties
     
-    private var searchResultsSubject: Observable<[SearchResultViewModel]> = .init([])
-    
-    private var storage = [GithubRepositorySearchResponsePayload]()
     private var storageItems: [GithubRepositorySearchItemResponse] {
-        return storage.map(\.items).flatMap { $0 }
+        return storage.items.map(\.items).flatMap { $0 }
     }
     
     private var searchResultItems: [SearchResultViewModel] {
         return storageItems.map(SearchResultViewModel.init)
+    }
+    
+    private var searchResultsSubject: Observable<[SearchResultViewModel]> = .init([])
+    private let storage: GithubRepositorySearchResponseStorage
+    
+    init(storage: GithubRepositorySearchResponseStorage = DefaultGithubRepositorySearchResponseStorage()) {
+        self.storage = storage
     }
 }
 
 // MARK: - GithubSearchResultsDataManagerInterface
 extension RepositorySearchResultsDataManager: GithubSearchResultsDataManagerInterface {
     var isMoreAvailable: Bool {
-        return storage.last?.isLastResult == false
+        return storage.items.last?.isLastResult == false
     }
     
     var searchResultsObservable: ImmutableObservable<[SearchResultViewModel]> {
@@ -49,9 +61,9 @@ extension RepositorySearchResultsDataManager: GithubSearchResultsDataManagerInte
     func store(_ type: DataOrigin, _ searchResult: GithubRepositorySearchResponsePayload) {
         switch type {
         case .new:
-            storage = [searchResult]
+            storage.items = [searchResult]
         case .additional:
-            storage.append(searchResult)
+            storage.items.append(searchResult)
         }
         
         searchResultsSubject.value = searchResultItems

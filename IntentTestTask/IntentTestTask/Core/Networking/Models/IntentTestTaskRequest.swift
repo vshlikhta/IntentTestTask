@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct IntentTestTaskRequest {
+enum IntentTestTaskRequest {
     static var components: URLComponents {
         var components = URLComponents()
         components.scheme = Constants.Github.scheme

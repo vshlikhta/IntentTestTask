@@ -15,8 +15,9 @@
 		3B91208B2683194F0087D08A /* IntentTestTaskRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208A2683194F0087D08A /* IntentTestTaskRequest.swift */; };
 		3B91208D26845F590087D08A /* RequestExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208C26845F590087D08A /* RequestExecutor.swift */; };
 		3B91208F268475E70087D08A /* Int+AsIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208E268475E70087D08A /* Int+AsIndex.swift */; };
-		3B9120972684BA170087D08A /* GithubSearchApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120962684BA170087D08A /* GithubSearchApiClient.swift */; };
 		3B91209F2684C1940087D08A /* NetworkSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91209E2684C1940087D08A /* NetworkSessionManager.swift */; };
+		3B9120A12689A2B20087D08A /* GithubSearchApiClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120A02689A2B20087D08A /* GithubSearchApiClientTests.swift */; };
+		3B9120A32689A38F0087D08A /* RepositorySearchResultsDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120A22689A38F0087D08A /* RepositorySearchResultsDataManagerTests.swift */; };
 		3BC520F5266FB18F00D7C805 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F4266FB18F00D7C805 /* AppDelegate.swift */; };
 		3BC520F7266FB18F00D7C805 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */; };
 		3BC520F9266FB18F00D7C805 /* RepositorySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F8266FB18F00D7C805 /* RepositorySearchViewController.swift */; };
@@ -67,9 +68,10 @@
 		3B91208C26845F590087D08A /* RequestExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutor.swift; sourceTree = "<group>"; };
 		3B91208E268475E70087D08A /* Int+AsIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+AsIndex.swift"; sourceTree = "<group>"; };
 		3B9120942684BA160087D08A /* IntentTestTaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntentTestTaskTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B9120962684BA170087D08A /* GithubSearchApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchApiClient.swift; sourceTree = "<group>"; };
 		3B9120982684BA170087D08A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B91209E2684C1940087D08A /* NetworkSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionManager.swift; sourceTree = "<group>"; };
+		3B9120A02689A2B20087D08A /* GithubSearchApiClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchApiClientTests.swift; sourceTree = "<group>"; };
+		3B9120A22689A38F0087D08A /* RepositorySearchResultsDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySearchResultsDataManagerTests.swift; sourceTree = "<group>"; };
 		3BC520F1266FB18F00D7C805 /* IntentTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntentTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC520F4266FB18F00D7C805 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,7 +125,8 @@
 		3B9120952684BA160087D08A /* IntentTestTaskTests */ = {
 			isa = PBXGroup;
 			children = (
-				3B9120962684BA170087D08A /* GithubSearchApiClient.swift */,
+				3B9120A02689A2B20087D08A /* GithubSearchApiClientTests.swift */,
+				3B9120A22689A38F0087D08A /* RepositorySearchResultsDataManagerTests.swift */,
 				3B9120982684BA170087D08A /* Info.plist */,
 			);
 			path = IntentTestTaskTests;
@@ -357,7 +360,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B9120972684BA170087D08A /* GithubSearchApiClient.swift in Sources */,
+				3B9120A32689A38F0087D08A /* RepositorySearchResultsDataManagerTests.swift in Sources */,
+				3B9120A12689A2B20087D08A /* GithubSearchApiClientTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
