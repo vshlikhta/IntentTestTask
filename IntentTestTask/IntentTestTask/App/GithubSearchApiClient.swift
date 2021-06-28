@@ -12,12 +12,19 @@ protocol GithubSearchApiClientInterface: AnyObject {
     func retrieveMoreRepositories(onComplete: @escaping GithubSearchApiClient.RepositoryRetrieveResponse)
 }
 
-final class GithubSearchApiClient: GithubSearchApiClientInterface, RequestExecutable {
+final class GithubSearchApiClient: GithubSearchApiClientInterface {
     typealias RepositoryRetrieveResponse = (Result<GithubRepositorySearchResponsePayload?, IntentTestTaskError>) -> Void
     
     // MARK: - Properties
     
+    private let requestExecutor: RequestExecutor
     private var lastRetrieveRequest: RepositoryRequest?
+    
+    // MARK: - Constructor
+    
+    init(requestExecutor: RequestExecutor = DefaultRequestExecutor()) {
+        self.requestExecutor = requestExecutor
+    }
     
     // MARK: - Methods
     
@@ -35,8 +42,7 @@ final class GithubSearchApiClient: GithubSearchApiClientInterface, RequestExecut
                                         page: String,
                                         _ onComplete: @escaping RepositoryRetrieveResponse) {
         let retrieveRequest = RepositoryRequest.repositoryList(query: query, page: page)
-        
-        execute(request: retrieveRequest) { [weak self] (result: Result<GithubRepositorySearchResponsePayload?, IntentTestTaskError>) in
+        requestExecutor.execute(request: retrieveRequest) { [weak self] (result: Result<GithubRepositorySearchResponsePayload?, IntentTestTaskError>) in
             switch result {
             case .success(let data):
                 self?.lastRetrieveRequest = retrieveRequest

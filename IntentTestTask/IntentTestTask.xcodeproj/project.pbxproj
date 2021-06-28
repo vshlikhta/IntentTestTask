@@ -13,8 +13,10 @@
 		3B912087268319180087D08A /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B912086268319180087D08A /* HTTPMethod.swift */; };
 		3B9120892683192E0087D08A /* URLRequest+HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120882683192E0087D08A /* URLRequest+HTTPMethod.swift */; };
 		3B91208B2683194F0087D08A /* IntentTestTaskRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208A2683194F0087D08A /* IntentTestTaskRequest.swift */; };
-		3B91208D26845F590087D08A /* RequestExecutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208C26845F590087D08A /* RequestExecutable.swift */; };
+		3B91208D26845F590087D08A /* RequestExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208C26845F590087D08A /* RequestExecutor.swift */; };
 		3B91208F268475E70087D08A /* Int+AsIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91208E268475E70087D08A /* Int+AsIndex.swift */; };
+		3B9120972684BA170087D08A /* GithubSearchApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9120962684BA170087D08A /* GithubSearchApiClient.swift */; };
+		3B91209F2684C1940087D08A /* NetworkSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91209E2684C1940087D08A /* NetworkSessionManager.swift */; };
 		3BC520F5266FB18F00D7C805 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F4266FB18F00D7C805 /* AppDelegate.swift */; };
 		3BC520F7266FB18F00D7C805 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */; };
 		3BC520F9266FB18F00D7C805 /* RepositorySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC520F8266FB18F00D7C805 /* RepositorySearchViewController.swift */; };
@@ -45,6 +47,16 @@
 		3BC5214426738FBE00D7C805 /* String+Incremented.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5214326738FBE00D7C805 /* String+Incremented.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3B9120992684BA170087D08A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3BC520E9266FB18F00D7C805 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3BC520F0266FB18F00D7C805;
+			remoteInfo = IntentTestTask;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		3B9120802681D3CF0087D08A /* RepositorySearchResultsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySearchResultsDataManager.swift; sourceTree = "<group>"; };
 		3B9120822681F7570087D08A /* UIViewController+ErrorPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorPresentable.swift"; sourceTree = "<group>"; };
@@ -52,8 +64,12 @@
 		3B912086268319180087D08A /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		3B9120882683192E0087D08A /* URLRequest+HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+HTTPMethod.swift"; sourceTree = "<group>"; };
 		3B91208A2683194F0087D08A /* IntentTestTaskRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentTestTaskRequest.swift; sourceTree = "<group>"; };
-		3B91208C26845F590087D08A /* RequestExecutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutable.swift; sourceTree = "<group>"; };
+		3B91208C26845F590087D08A /* RequestExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestExecutor.swift; sourceTree = "<group>"; };
 		3B91208E268475E70087D08A /* Int+AsIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+AsIndex.swift"; sourceTree = "<group>"; };
+		3B9120942684BA160087D08A /* IntentTestTaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntentTestTaskTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B9120962684BA170087D08A /* GithubSearchApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchApiClient.swift; sourceTree = "<group>"; };
+		3B9120982684BA170087D08A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B91209E2684C1940087D08A /* NetworkSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionManager.swift; sourceTree = "<group>"; };
 		3BC520F1266FB18F00D7C805 /* IntentTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntentTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC520F4266FB18F00D7C805 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BC520F6266FB18F00D7C805 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +103,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3B9120912684BA160087D08A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BC520EE266FB18F00D7C805 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -97,10 +120,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B9120952684BA160087D08A /* IntentTestTaskTests */ = {
+			isa = PBXGroup;
+			children = (
+				3B9120962684BA170087D08A /* GithubSearchApiClient.swift */,
+				3B9120982684BA170087D08A /* Info.plist */,
+			);
+			path = IntentTestTaskTests;
+			sourceTree = "<group>";
+		};
 		3BC520E8266FB18F00D7C805 = {
 			isa = PBXGroup;
 			children = (
 				3BC520F3266FB18F00D7C805 /* IntentTestTask */,
+				3B9120952684BA160087D08A /* IntentTestTaskTests */,
 				3BC520F2266FB18F00D7C805 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				3BC520F1266FB18F00D7C805 /* IntentTestTask.app */,
+				3B9120942684BA160087D08A /* IntentTestTaskTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -203,8 +237,9 @@
 			isa = PBXGroup;
 			children = (
 				3BC5211D266FC3BD00D7C805 /* IntentTestTaskError.swift */,
-				3B91208C26845F590087D08A /* RequestExecutable.swift */,
+				3B91208C26845F590087D08A /* RequestExecutor.swift */,
 				3BC521352673461F00D7C805 /* RepositoryRequest.swift */,
+				3B91209E2684C1940087D08A /* NetworkSessionManager.swift */,
 				3BC5213826734C7800D7C805 /* Models */,
 			);
 			path = Networking;
@@ -224,6 +259,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3B9120932684BA160087D08A /* IntentTestTaskTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B91209B2684BA170087D08A /* Build configuration list for PBXNativeTarget "IntentTestTaskTests" */;
+			buildPhases = (
+				3B9120902684BA160087D08A /* Sources */,
+				3B9120912684BA160087D08A /* Frameworks */,
+				3B9120922684BA160087D08A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3B91209A2684BA170087D08A /* PBXTargetDependency */,
+			);
+			name = IntentTestTaskTests;
+			productName = IntentTestTaskTests;
+			productReference = 3B9120942684BA160087D08A /* IntentTestTaskTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		3BC520F0266FB18F00D7C805 /* IntentTestTask */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BC52105266FB19100D7C805 /* Build configuration list for PBXNativeTarget "IntentTestTask" */;
@@ -250,6 +303,10 @@
 				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					3B9120932684BA160087D08A = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = 3BC520F0266FB18F00D7C805;
+					};
 					3BC520F0266FB18F00D7C805 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -269,11 +326,19 @@
 			projectRoot = "";
 			targets = (
 				3BC520F0266FB18F00D7C805 /* IntentTestTask */,
+				3B9120932684BA160087D08A /* IntentTestTaskTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3B9120922684BA160087D08A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BC520EF266FB18F00D7C805 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -288,10 +353,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3B9120902684BA160087D08A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B9120972684BA170087D08A /* GithubSearchApiClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BC520ED266FB18F00D7C805 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B91209F2684C1940087D08A /* NetworkSessionManager.swift in Sources */,
 				3B9120892683192E0087D08A /* URLRequest+HTTPMethod.swift in Sources */,
 				3BC52125266FC54C00D7C805 /* ControllerReloadable.swift in Sources */,
 				3B9120852681F7840087D08A /* IntentTestTaskAlert.swift in Sources */,
@@ -313,7 +387,7 @@
 				3BC52114266FBCF600D7C805 /* UITableView+CellReusable.swift in Sources */,
 				3B9120812681D3CF0087D08A /* RepositorySearchResultsDataManager.swift in Sources */,
 				3B9120832681F7570087D08A /* UIViewController+ErrorPresentable.swift in Sources */,
-				3B91208D26845F590087D08A /* RequestExecutable.swift in Sources */,
+				3B91208D26845F590087D08A /* RequestExecutor.swift in Sources */,
 				3BC5211A266FBE3F00D7C805 /* Lock.swift in Sources */,
 				3BC52116266FBE1100D7C805 /* Observable.swift in Sources */,
 				3BC52109266FB4F400D7C805 /* SearchResultTableViewCell.swift in Sources */,
@@ -328,6 +402,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3B91209A2684BA170087D08A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3BC520F0266FB18F00D7C805 /* IntentTestTask */;
+			targetProxy = 3B9120992684BA170087D08A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3BC520FA266FB18F00D7C805 /* Main.storyboard */ = {
@@ -349,6 +431,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3B91209C2684BA170087D08A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3PX6RR23T8;
+				INFOPLIST_FILE = IntentTestTaskTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.binariks.IntentTestTaskTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IntentTestTask.app/IntentTestTask";
+			};
+			name = Debug;
+		};
+		3B91209D2684BA170087D08A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3PX6RR23T8;
+				INFOPLIST_FILE = IntentTestTaskTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.binariks.IntentTestTaskTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IntentTestTask.app/IntentTestTask";
+			};
+			name = Release;
+		};
 		3BC52103266FB19100D7C805 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -506,6 +628,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3B91209B2684BA170087D08A /* Build configuration list for PBXNativeTarget "IntentTestTaskTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B91209C2684BA170087D08A /* Debug */,
+				3B91209D2684BA170087D08A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3BC520EC266FB18F00D7C805 /* Build configuration list for PBXProject "IntentTestTask" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
